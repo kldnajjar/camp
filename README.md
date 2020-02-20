@@ -2,10 +2,10 @@
 
 ```bash
 # clone the repo
-$ git clone https://github.com/coreui/coreui-pro-react-admin-template.git my-project
+$ git clone https://github.com/kldnajjar/camp-app.git
 
 # go into app's directory
-$ cd my-project
+$ cd camp-app
 
 # install app's dependencies
 $ npm install
