@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import adminAuth from "../../services/admin/authService";
-import employeeAuth from "../../services/employee/authService";
-import userAuth from "../../services/user/authService";
-import { getNameSpace } from "../../util/global";
+import auth from "../../services/authService";
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">
@@ -20,24 +17,8 @@ class ProtectedRoute extends Component {
   };
 
   async componentDidMount() {
-    const nameSpace = await getNameSpace();
-    const origin = window.location.pathname.split("/");
-    let token, path;
-
-    if (nameSpace === "admin") {
-      token = await adminAuth.getToken();
-      path = "/dashboard/login";
-    }
-
-    if (nameSpace === "employee") {
-      token = await employeeAuth.getToken();
-      path = `/${origin[1]}/dashboard/login`;
-    }
-
-    if (nameSpace === "user") {
-      token = await userAuth.getToken();
-      path = `/${origin[1]}/app/login`;
-    }
+    let token = await auth.getToken();
+    let path = "/login";
 
     this.setState({
       isSynced: true,
