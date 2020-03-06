@@ -6,7 +6,9 @@ import http from "./httpService";
 const apiEndPointLogin = `/auth/`;
 const apiEndPointValidate = `/auth/refresh/`;
 
-const refreshTokenTime = 300000;
+const origin = window.location.pathname.split("/");
+const refreshTokenTime = 8.64e7;
+// 300000;
 const tokenKey = "camp_user_token";
 const userKey = "camp_user_information";
 
@@ -110,10 +112,10 @@ export async function validateToken() {
     if (!token) return;
 
     const option = { refresh: token.refresh };
-
     const { data } = await http.post(apiEndPointValidate, option);
-    const decode = jwtDecode(data.access);
 
+    const decode = jwtDecode(data.access);
+    data.refresh = token.refresh;
     // const items = data;
     setToken(data, decode);
     // setUserInfo(data);
@@ -139,7 +141,6 @@ async function init() {
   http.setRequestHeader(token);
 }
 
-// origin.length > 4 doesnt execute in landing page
 setInterval(function() {
   if (origin[1] !== "" && origin[1] !== "login") validateToken();
 }, refreshTokenTime);

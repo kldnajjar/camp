@@ -37,7 +37,9 @@ axios.interceptors.response.use(null, error => {
 
 export function setRequestHeader(token) {
   if (token) {
-    axios.defaults.headers.common["Authorization"] = token["access"];
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token["access"]}`;
     axios.defaults.headers.common["accept-language"] = "en";
     //Authorization
   }
