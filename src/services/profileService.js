@@ -14,13 +14,13 @@ export async function getProfile(id) {
   return result;
 }
 
-export async function getProfilePerPage(page, limit, sortColumn) {
+export async function getProfilesPerPage(page, limit, sortColumn) {
   const options = `?page[number]=${page}&page[limit]=${limit}&sort[type]=${sortColumn.path}&sort[order]=${sortColumn.order}`;
   const { data } = await http.get(`${endPoints[origin[2]]}${options}`);
   return data;
 }
 
-export async function getProfileFilteredBy(page, limit, sortColumn, search) {
+export async function getProfilesFilteredBy(page, limit, sortColumn, search) {
   const filterPath = exposeSearchQuery(search);
   const options = `?page[number]=${page}&page[limit]=${limit}&sort[type]=${sortColumn.path}&${filterPath}sort[order]=${sortColumn.order}`;
 
@@ -54,8 +54,8 @@ export async function deleteProfile(id = null) {
 export default {
   getProfiles,
   getProfile,
-  getProfilePerPage,
-  getProfileFilteredBy,
+  getProfilesPerPage,
+  getProfilesFilteredBy,
   addNewProfile,
   updateProfile,
   deleteProfile

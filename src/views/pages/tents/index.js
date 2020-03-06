@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
-  getProfiles,
-  getProfileFilteredBy
+  getProfilesPerPage,
+  getProfilesFilteredBy
 } from "../../../services/profileService";
 import { loader } from "../../../actions/loaderAction";
 import Table from "./table";
@@ -45,14 +45,14 @@ class Tents extends Component {
   };
 
   async componentDidMount() {
-    const { errors: errs } = this.state;
+    const { currentPage, pageLimit, sortColumn, errors: errs } = this.state;
 
     try {
       setTimeout(() => {
         this.props.dispatch(loader(true));
       }, 200);
 
-      const data = await getProfiles();
+      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
       this.setState({ data });
     } catch (err) {
       if (err.response) {
@@ -88,7 +88,12 @@ class Tents extends Component {
     try {
       const { sortColumn, pageLimit, search } = this.state;
       await this.props.dispatch(loader(true));
-      const data = await getProfileFilteredBy(1, pageLimit, sortColumn, search);
+      const data = await getProfilesFilteredBy(
+        1,
+        pageLimit,
+        sortColumn,
+        search
+      );
       this.setState({ data, sortColumn, search, currentPage: 1 });
     } catch (err) {
       if (err.response) toast.error(err.response.data.error.message);
@@ -118,7 +123,7 @@ class Tents extends Component {
     try {
       await this.props.dispatch(loader(true));
       const currentPage = page.selected + 1;
-      const data = await getProfileFilteredBy(
+      const data = await getProfilesFilteredBy(
         currentPage,
         pageLimit,
         sortColumn,
