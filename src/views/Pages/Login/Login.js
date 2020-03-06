@@ -1,4 +1,8 @@
 import React from "react";
+import Joi from "joi-browser";
+import { connect } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+
 import {
   Button,
   Card,
@@ -6,23 +10,49 @@ import {
   CardGroup,
   Col,
   Container,
-  Form,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Row
 } from "reactstrap";
-import { ToastContainer, toast } from "react-toastify";
-import FormWrapper from "../../../components/common/form";
-import Joi from "joi-browser";
-import { connect } from "react-redux";
-import { loader } from "../../../actions/loaderAction";
-import auth from "../../../services/authService";
 
-const containerStyle = { zIndex: 1999 };
+import FormWrapper from "../../../components/common/form";
+import auth from "../../../services/authService";
+import { loader } from "../../../actions/loaderAction";
+import strings from "./localization";
 
 class Login extends FormWrapper {
+  state = {
+    data: {
+      email: null,
+      password: null
+    },
+    lang: "ar",
+    displayedLang: "en",
+    errors: {}
+  };
+
+  schema = {
+    email: Joi.string()
+      .required()
+      .label("Email"),
+    password: Joi.string()
+      .required()
+      .label("Password")
+  };
+
+  toggleLanguage = () => {
+    let { displayedLang, lang } = this.state;
+
+    if (displayedLang === "en") {
+      displayedLang = "ar";
+      lang = "en";
+    } else if (displayedLang === "ar") {
+      displayedLang = "en";
+      lang = "ar";
+    }
+
+    strings.setLanguage(displayedLang);
+    this.setState({ displayedLang, lang });
+  };
+
   handleLogin = () => {
     // console.log("khaled", this);
     // axios
@@ -39,64 +69,76 @@ class Login extends FormWrapper {
     //   });
   };
 
+  doSubmit = async () => {
+    const { data, errors: errs } = this.state;
+
+    try {
+      await this.props.dispatch(loader(true));
+      await auth.login(data);
+      window.location = `/dashboard`;
+    } catch (err) {
+      if (err.response) {
+        const errors = { ...errs };
+        // errors.username = err.response.data.error.message;
+        this.setState({ errors });
+        toast.error(err.response.data.error.message);
+      }
+    } finally {
+      await this.props.dispatch(loader(false));
+    }
+  };
+
   render() {
+    const { lang } = this.state;
+
     return (
       <div className="app flex-row align-items-center">
         <ToastContainer
           position="top-right"
           autoClose={false}
-          style={containerStyle}
+          style={{ zIndex: 1999 }}
         />
+        <div className="localization-container">
+          <Button size="sm" color="ghost-success" onClick={this.toggleLanguage}>
+            {lang}
+          </Button>
+        </div>
+
         <Container>
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="text"
-                          placeholder="Username"
-                          autoComplete="username"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          type="password"
-                          placeholder="Password"
-                          autoComplete="current-password"
-                        />
-                      </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button
-                            color="primary"
-                            className="px-4"
-                            onClick={this.handleLogin}
-                          >
-                            Login
-                          </Button>
-                        </Col>
-                        <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">
-                            Forgot password?
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
+                    <Row>
+                      <form
+                        className="mt-4 full-width"
+                        onSubmit={this.handleSubmit}
+                      >
+                        {this.renderInput(
+                          "email",
+                          "Email",
+                          "",
+                          "",
+                          "Enter email",
+                          "text",
+                          true
+                        )}
+
+                        {this.renderInput(
+                          "password",
+                          "Password",
+                          "",
+                          "",
+                          "Enter password",
+                          "password"
+                        )}
+
+                        <div className="pull-right">
+                          {this.renderButton("Login")}
+                        </div>
+                      </form>
+                    </Row>
                   </CardBody>
                 </Card>
               </CardGroup>

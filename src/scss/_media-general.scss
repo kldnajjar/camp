@@ -1,0 +1,124 @@
+@supports (-webkit-overflow-scrolling: touch) {
+  /* CSS specific to iOS devices */
+}
+
+@media only screen and (max-width: 1199px) {
+  .res-auto-margin {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .res-text-center {
+    text-align: center !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .col-res-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .hide-responsive {
+    display: none !important;
+  }
+
+  .responsive-full-width {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .responsive-p-2 {
+    padding: 0.5rem 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .reset-lg-padding {
+    padding: 0 15px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  // body {
+  //   width: 100%;
+  //   max-width: 100%;
+  //   will-change: position;
+  // }
+
+  // body.modal-open {
+  //   position: fixed;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  // }
+  // .modal {
+  //   will-change: display;
+  // }
+
+  // .modal-dialog {
+  //   will-change: transform;
+  // }
+
+  // .modal-body {
+  //   overflow: auto;
+  //   -webkit-overflow-scrolling: touch;
+  // }
+
+  .hide-md-responsive {
+    display: none !important;
+  }
+  .show-md-responsive {
+    display: inline-block !important;
+  }
+
+  body.modal-open {
+    // overflow-y: hidden;
+    // position: absolute;
+    // z-index: 0;
+  }
+
+  .modal {
+    // position: fixed;
+    // top: 0;
+    // z-index: 9999;
+    // overflow-y: auto !important;
+    // -webkit-overflow-scrolling: touch !important;
+    // .modal-body {
+    //   overflow: auto;
+    //   -webkit-overflow-scrolling: touch;
+    // }
+    .modal-title {
+      width: 100%;
+    }
+    .modal-footer {
+      // position: fixed;
+      // bottom: 0;
+      // width: 100%;
+      // background-color: #ffffff;
+    }
+    .modal-dialog {
+      max-width: 100% !important;
+      margin: 0 !important;
+      // height: 100% !important;
+      // min-height: 100vh !important;
+    }
+    .modal-content {
+      min-height: 100vh !important;
+      // height: 100% !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .hide-sm-responsive {
+    display: none !important;
+  }
+  .show-sm-responsive {
+    display: inline-block !important;
+  }
+}

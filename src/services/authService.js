@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import queryString from "query-string";
-
+import * as jwtDecode from "jwt-decode";
 import http from "./httpService";
 
 const apiEndPointLogin = `/auth/`;
@@ -11,14 +11,14 @@ const tokenKey = "camp_user_token";
 const userKey = "camp_user_information";
 
 export async function login(user) {
-  debugger;
   const info = {
-    email: user.username,
+    email: user.email,
     password: user.password
   };
-  const { headers, data } = await http.post(apiEndPointLogin, info);
-  setToken(headers, data.user);
-  setUserInfo(data.user);
+  const { data } = await http.post(apiEndPointLogin, info);
+  const decode = jwtDecode(data.access);
+  setToken(data, decode);
+  // setUserInfo(data.user);
   return data.user;
 }
 
@@ -43,10 +43,10 @@ async function setUserInfo({
   localStorage.setItem(userKey, JSON.stringify(info));
 }
 
-async function setToken(header, { id }) {
+async function setToken(data, { uid }) {
   const token = {
-    [id]: {
-      authorization: header["access"]
+    [uid]: {
+      authorization: data["access"]
     }
   };
   localStorage.setItem(tokenKey, JSON.stringify(token));
@@ -56,8 +56,8 @@ export async function getCurrentUser() {
   try {
     const info = localStorage.getItem(userKey);
     const obj = JSON.parse(info);
-    const id = Object.keys(obj)[0];
-    return obj[id];
+    const uid = Object.keys(obj)[0];
+    return obj[uid];
   } catch (err) {
     return null;
   }
@@ -67,8 +67,8 @@ export async function getToken() {
   try {
     const token = await localStorage.getItem(tokenKey);
     const obj = JSON.parse(token);
-    const id = Object.keys(obj)[0];
-    const result = obj[id];
+    const uid = Object.keys(obj)[0];
+    const result = obj[uid];
     return result;
   } catch (error) {
     return null;
@@ -108,10 +108,12 @@ export async function validateToken() {
     const token = await getToken();
     if (!token) return;
 
-    const { headers, data } = await http.get(apiEndPointValidate);
+    const { data } = await http.get(apiEndPointValidate);
+    const decode = jwtDecode(data.access);
+
     const items = data;
-    setToken(headers, items);
-    setUserInfo(items);
+    setToken(data, decode);
+    // setUserInfo(data);
 
     const newToken = await getToken();
     http.setRequestHeader(newToken);

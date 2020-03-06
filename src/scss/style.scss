@@ -23,4 +23,10 @@
 
 // Spinkit
 $spinkit-spinner-color: $body-color;
-@import '~spinkit/scss/spinkit.scss';
+@import "~spinkit/scss/spinkit.scss";
+
+@import "variables";
+@import "general";
+@import "custom";
+@import "media-general";
+@import "media-custom";
