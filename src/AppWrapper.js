@@ -32,6 +32,7 @@ class AppWrapper extends Component {
               <Switch>
                 <Route path="/login" name="Login Page" component={Login} />
                 <ProtectedRoute path="/dashboard" component={Layout} />
+
                 <Route path="/" component={Login} exact />
                 <Route path="/not-found" name="404" component={Page404} />
                 {/* <Redirect from="/" to="/dashboard" exact /> */}

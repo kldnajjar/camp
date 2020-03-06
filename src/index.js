@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import "react-select/dist/react-select.min.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-bootstrap-table/dist//react-bootstrap-table-all.min.css";
 import "./App.scss";
 
 ReactDOM.render(<App />, document.getElementById("root"));
