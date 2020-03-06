@@ -13,30 +13,18 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import Joi from "joi-browser";
 
-import {
-  getCompanyById,
-  updateCompany
-} from "../../../services/admin/companiesService";
+import { getProfile, updateProfile } from "../../../services/profileService";
 
 import FormWrapper from "../../../components/common/form";
 import { loader } from "../../../actions/loaderAction";
-import Addressable from "../../../components/common/admin/addressable";
-import Phoneable from "../../../components/common/admin/phoneable";
-import Imageable from "../../../components/common/admin/imageable";
-import Features from "./features";
 import UnSavedChanges from "../../../components/common/unSavedChanges";
 
 class Edit extends FormWrapper {
   state = {
     data: {
       id: null,
-      configuration_name: "",
-      name: "",
-      email: "",
-      url: "",
-      joined_date: "",
-      status: "",
-      subscription_type: ""
+      name: null,
+      capacity: null
     },
     isChanged: false,
     errors: {}
@@ -44,38 +32,12 @@ class Edit extends FormWrapper {
 
   reset = {};
 
-  status_option = [
-    {
-      id: "enabled",
-      name: "Enabled"
-    },
-    {
-      id: "disabled",
-      name: "Disabled"
-    }
-  ];
-
-  subscription_options = [
-    {
-      id: "monthly",
-      name: "Monthly"
-    },
-    { id: "yearly", name: "Yearly" }
-  ];
-
   schema = {
+    id: Joi.string().label("ID"),
     name: Joi.string()
       .required()
-      .label("Company name"),
-    configuration_name: Joi.string()
-      .required()
-      .label("Configuration name"),
-    url: Joi.label("URL"),
-    email: Joi.label("Email"),
-    id: Joi.label("ID"),
-    joined_date: Joi.label("Joined date"),
-    status: Joi.label("Status"),
-    subscription_type: Joi.label("Subscription type")
+      .label("Tent Name"),
+    capacity: Joi.label("Tents Number")
   };
 
   async componentDidMount() {
@@ -86,7 +48,7 @@ class Edit extends FormWrapper {
       await this.props.dispatch(loader(true));
       const id = window.location.pathname.split("/")[3];
 
-      const { company: data } = await getCompanyById(id);
+      const { data } = await getProfile(id);
       this.reset.data = data;
 
       this.setState({ data });
@@ -108,7 +70,7 @@ class Edit extends FormWrapper {
   };
 
   ExitEditMode = () => {
-    this.props.history.push(`/dashboard/companies/${this.state.data.id}`);
+    this.props.history.push(`/dashboard/tents/${this.state.data.id}`);
   };
 
   resetHandler = () => {
@@ -117,11 +79,11 @@ class Edit extends FormWrapper {
   };
 
   doSubmit = async () => {
-    const { data, errors: errs } = this.state;
+    const { data: value, errors: errs } = this.state;
     try {
       await this.props.dispatch(loader(true));
-      const { company } = await updateCompany(data);
-      this.reset.data = company;
+      const data = await updateProfile(value);
+      this.reset.data = data;
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -145,13 +107,6 @@ class Edit extends FormWrapper {
   render() {
     const { data, isChanged } = this.state;
     if (!data.id) return null;
-
-    const extraAddressOption = [{ name: "addressable_type", value: "Company" }];
-    const extraPhoneOption = [{ name: "phoneable_type", value: "Company" }];
-    const extraImagesOption = [
-      { name: "imageable_type", value: "Company" },
-      { name: "image_type", value: "logo" }
-    ];
 
     return (
       <React.Fragment>
@@ -185,30 +140,10 @@ class Edit extends FormWrapper {
                         "name",
                         "Name",
                         "",
-                        "",
-                        "Enter Company name",
+                        "fa fa-info-circle",
+                        "Tent name",
                         "text",
                         true
-                      )}
-                    </Col>
-                    <Col>
-                      {this.renderInput(
-                        "configuration_name",
-                        "Configuration name",
-                        "",
-                        "",
-                        "Enter Configuration name",
-                        "text"
-                      )}
-                    </Col>
-                    <Col>
-                      {this.renderInput(
-                        "email",
-                        "Email",
-                        "",
-                        "",
-                        "Enter company email address",
-                        "text"
                       )}
                     </Col>
                   </Row>
@@ -216,33 +151,14 @@ class Edit extends FormWrapper {
                   <Row>
                     <Col>
                       {this.renderInput(
-                        "url",
-                        "URL",
+                        "capacity",
+                        "Total Nuumber",
                         "",
-                        "",
-                        "Enter your company url",
-                        "text"
+                        "fa fa-info-circle",
+                        "Tents Count",
+                        "number"
                       )}
-                    </Col>
-                    <Col>
-                      {this.renderDatePicker("joined_date", "Joined date")}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      {this.renderSelect(
-                        "status",
-                        "Status",
-                        this.status_option
-                      )}
-                    </Col>
-                    <Col>
-                      {this.renderSelect(
-                        "subscription_type",
-                        "Subscription Type",
-                        this.subscription_options
-                      )}
-                    </Col>
+                    </Col>{" "}
                   </Row>
                 </CardBody>
 
@@ -266,14 +182,6 @@ class Edit extends FormWrapper {
             </Card>
           </Col>
         </Row>
-
-        <Imageable options={extraImagesOption} />
-
-        <Addressable options={extraAddressOption} />
-
-        <Phoneable options={extraPhoneOption} />
-
-        <Features />
       </React.Fragment>
     );
   }
