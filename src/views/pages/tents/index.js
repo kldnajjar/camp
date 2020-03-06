@@ -37,6 +37,7 @@ class Tents extends Component {
     errors: {}
   };
 
+  url = "/dashboard/tents";
   loading = true;
 
   info = {
@@ -75,6 +76,23 @@ class Tents extends Component {
       }, 500);
     }
   }
+
+  editHandler = id => {
+    this.props.history.push(`${this.url}/${id}`);
+  };
+
+  sortHandler = async sortColumn => {
+    const { pageLimit } = this.state;
+    try {
+      await this.props.dispatch(loader(true));
+      const data = await getProfilesPerPage(1, pageLimit, sortColumn);
+      this.setState({ data, sortColumn, currentPage: 1 });
+    } catch (err) {
+      if (err.response) toast.error(err.response.data.error.message);
+    } finally {
+      await this.props.dispatch(loader(false));
+    }
+  };
 
   onSearchChange = searchQuery => {
     const { search: oldSearch } = this.state;
@@ -178,13 +196,16 @@ class Tents extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePagination}
           onDelete={this.showDeleteConfirmationModal}
-          onShow={this.showHandler}
           onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
         />
 
-        <Add showModal={showAddModal} onToggle={this.addModalHandler} />
+        <Add
+          showModal={showAddModal}
+          onToggle={this.addModalHandler}
+          url={this.url}
+        />
 
         <Delete
           showModal={showDeleteModal}

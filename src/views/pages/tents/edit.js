@@ -30,6 +30,7 @@ class Edit extends FormWrapper {
     errors: {}
   };
 
+  url = "/dashboard/tents";
   reset = {};
 
   schema = {
@@ -70,7 +71,7 @@ class Edit extends FormWrapper {
   };
 
   ExitEditMode = () => {
-    this.props.history.push(`/dashboard/tents/${this.state.data.id}`);
+    this.props.history.push(`${this.url}/${this.state.data.id}`);
   };
 
   resetHandler = () => {

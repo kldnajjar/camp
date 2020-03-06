@@ -35,11 +35,12 @@ class Add extends FormWrapper {
 
   doSubmit = async () => {
     const { data: oldData, errors: errs } = this.state;
+    const { url } = this.props;
 
     try {
       await this.props.dispatch(loader(true));
       const { data } = await addNewProfile(oldData);
-      this.props.history.push(`/dashboard/tents/${data.id}`);
+      this.props.history.push(`${url}/${data.id}`);
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };

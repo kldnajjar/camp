@@ -6,6 +6,7 @@ import TableActions from "../../../components/common/tableActions";
 import { dateFormatter, badgeFormatter } from "../../../util/global";
 
 class TableWrapper extends Component {
+  url = "/dashboard/tents";
   columns = [
     {
       id: 1,
@@ -17,31 +18,30 @@ class TableWrapper extends Component {
         type: "text"
       },
       isResponsive: true
-    }
-    // {
-    //   id: 2,
-    //   path: "name",
-    //   label: "Name",
-    //   filter: {
-    //     path: "name_like",
-    //     type: "text"
-    //   },
-    //   sort: true,
-    //   isResponsive: true,
-    //   content: obj => <Link to={`/dashboard/tents/${obj.id}`}>{obj.name}</Link>
-    // },
-    // {
-    //   id: 3,
-    //   path: "capacity",
-    //   label: "Capacity",
-    //   filter: {
-    //     path: "joined_date",
-    //     type: "date"
-    //   },
-    //   sort: true,
-    //   isResponsive: false,
-    //   content: company => dateFormatter(company.joined_date)
-    // },
+    },
+    {
+      id: 2,
+      path: "name",
+      label: "Name",
+      filter: {
+        path: "name_like",
+        type: "text"
+      },
+      sort: true,
+      isResponsive: true,
+      content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.name}</Link>
+    } /
+      {
+        id: 3,
+        path: "capacity",
+        label: "Total Number",
+        filter: {
+          path: "capacity",
+          type: "number"
+        },
+        sort: true,
+        isResponsive: true
+      }
     // {
     //   id: 4,
     //   path: "status",
@@ -69,7 +69,6 @@ class TableWrapper extends Component {
       <TableActions
         id={company.id}
         onEdit={this.props.onEdit && (() => this.props.onEdit(company.id))}
-        onShow={this.props.onShow && (() => this.props.onShow(company.id))}
         onDelete={
           this.props.onDelete &&
           (() => this.props.onDelete(company.id, company.name))

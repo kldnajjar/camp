@@ -23,61 +23,11 @@ class TableActions extends Component {
   };
 
   render() {
-    const {
-      onEdit,
-      onDelete,
-      onShow,
-      onRole,
-      id,
-      deleteLabel,
-      editLabel,
-      showLabel,
-      roleLabel
-    } = this.props;
-    const { isSearchOpen, isEditOpen, isDeleteOpen, isRoleOpen } = this.state;
+    const { onEdit, onDelete, id, deleteLabel, editLabel } = this.props;
+    const { isEditOpen, isDeleteOpen } = this.state;
 
     return (
       <div>
-        {onShow && (
-          <React.Fragment>
-            <button
-              className="btn btn-success mx-1"
-              onClick={onShow}
-              id={`search-tooltip-${id}`}
-            >
-              <i className="fa fa-eye" />
-            </button>
-            <Tooltip
-              placement="top"
-              isOpen={isSearchOpen}
-              target={`search-tooltip-${id}`}
-              toggle={this.toggleSearch}
-            >
-              {showLabel}
-            </Tooltip>
-          </React.Fragment>
-        )}
-
-        {onRole && (
-          <React.Fragment>
-            <button
-              className="btn btn-warning mx-1"
-              onClick={onRole}
-              id={`role-tooltip-${id}`}
-            >
-              <i className="fa fa-archive" />
-            </button>
-            <Tooltip
-              placement="top"
-              isOpen={isRoleOpen}
-              target={`role-tooltip-${id}`}
-              toggle={this.toggleRole}
-            >
-              {roleLabel}
-            </Tooltip>
-          </React.Fragment>
-        )}
-
         {onEdit && (
           <React.Fragment>
             <button
