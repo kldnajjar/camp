@@ -46,7 +46,8 @@ async function setUserInfo({
 async function setToken(data, { uid }) {
   const token = {
     [uid]: {
-      authorization: data["access"]
+      access: data["access"],
+      refresh: data["refresh"]
     }
   };
   localStorage.setItem(tokenKey, JSON.stringify(token));
@@ -108,10 +109,12 @@ export async function validateToken() {
     const token = await getToken();
     if (!token) return;
 
-    const { data } = await http.get(apiEndPointValidate);
+    const option = { refresh: token.refresh };
+
+    const { data } = await http.post(apiEndPointValidate, option);
     const decode = jwtDecode(data.access);
 
-    const items = data;
+    // const items = data;
     setToken(data, decode);
     // setUserInfo(data);
 
@@ -138,7 +141,7 @@ async function init() {
 
 // origin.length > 4 doesnt execute in landing page
 setInterval(function() {
-  validateToken();
+  if (origin[1] !== "" && origin[1] !== "login") validateToken();
 }, refreshTokenTime);
 init();
 

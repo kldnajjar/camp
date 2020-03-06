@@ -18,7 +18,6 @@ const Layout = React.lazy(() =>
 );
 
 const Page404 = React.lazy(() => import("./views/Pages/404/not-found"));
-
 const Login = React.lazy(() => import("./views/Pages/Login"));
 
 class AppWrapper extends Component {
