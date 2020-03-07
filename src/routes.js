@@ -10,16 +10,16 @@ const Tent_Type = React.lazy(() => import("./views/pages/tent_types/edit"));
 const routes = [
   {
     path: "/dashboard/tent_types/:id",
-    name: "Tent Type Profile",
+    name: "Profile",
     component: Tent_Type
   },
   {
     path: "/dashboard/tent_types",
-    name: "Tent Types Profile",
+    name: "Tent Types",
     component: Tent_Types
   },
-  { path: "/dashboard/tents/:id", name: "Tent Profile", component: Tent },
-  { path: "/dashboard/tents", name: "Tents Profile", component: Tents },
+  { path: "/dashboard/tents/:id", name: "Profile", component: Tent },
+  { path: "/dashboard/tents", name: "Tents", component: Tents },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/", exact: true, name: "Home" }
 ];
