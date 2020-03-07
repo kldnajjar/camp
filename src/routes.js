@@ -11,9 +11,22 @@ const Foods = React.lazy(() => import("./views/pages/food"));
 const Food = React.lazy(() => import("./views/pages/food/edit"));
 const Meal_Types = React.lazy(() => import("./views/pages/meal_types"));
 const Meal_Type = React.lazy(() => import("./views/pages/meal_types/edit"));
+const Stay_Types = React.lazy(() => import("./views/pages/stay_types"));
+const Stay_Type = React.lazy(() => import("./views/pages/stay_types/edit"));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/stay_types/:id",
+    name: "Profile",
+    component: Stay_Type
+  },
+  {
+    path: "/dashboard/stay_types",
+    name: "Meal Types",
+    component: Stay_Types
+  },
   {
     path: "/dashboard/meal_types/:id",
     name: "Profile",

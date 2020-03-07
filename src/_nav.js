@@ -33,6 +33,11 @@ export default {
           name: "Meal Types",
           url: "/dashboard/meal_types",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Stay Types",
+          url: "/dashboard/stay_types",
+          icon: "fa fa-cubes"
         }
       ]
     }
