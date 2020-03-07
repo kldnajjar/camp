@@ -60,9 +60,8 @@ class Edit extends FormWrapper {
       await this.props.dispatch(loader(true));
       const id = window.location.pathname.split("/")[3];
 
-      const { data } = await getProfile(id);
-      const tent_types = await getProfiles("tent_types");
-
+      const data = await getProfile(id);
+      const { results: tent_types } = await getProfiles("tent_types");
       this.reset.data = data;
 
       this.setState({ data, tent_types });

@@ -14,6 +14,7 @@ const Pagination = props => {
     marginDisplayed = 1;
     pageDisplayled = 1;
   }
+
   return (
     <nav aria-label="Page navigation example">
       <ReactPaginate

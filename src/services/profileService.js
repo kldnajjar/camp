@@ -16,8 +16,8 @@ export async function getProfile(id, endpoint = null) {
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.get(`/${endpoint}/${id}/`);
-  return result;
+  const { data } = await http.get(`/${endpoint}/${id}/`);
+  return data;
 }
 
 export async function getProfilesPerPage(
@@ -27,7 +27,7 @@ export async function getProfilesPerPage(
   endpoint = null
 ) {
   const origin = window.location.pathname.split("/");
-  const options = `?page[number]=${page}&page[limit]=${limit}&sort[type]=${sortColumn.path}&sort[order]=${sortColumn.order}`;
+  const options = `?page=${page}&per_page=${limit}&sort[type]=${sortColumn.path}&sort[order]=${sortColumn.order}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
@@ -44,7 +44,7 @@ export async function getProfilesFilteredBy(
 ) {
   const origin = window.location.pathname.split("/");
   const filterPath = exposeSearchQuery(search);
-  const options = `?page[number]=${page}&page[limit]=${limit}&sort[type]=${sortColumn.path}&${filterPath}sort[order]=${sortColumn.order}`;
+  const options = `?page=${page}&per_page=${limit}&sort[type]=${sortColumn.path}&${filterPath}sort[order]=${sortColumn.order}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
@@ -52,25 +52,25 @@ export async function getProfilesFilteredBy(
   return data;
 }
 
-export async function addNewProfile(data, endpoint = null) {
+export async function addNewProfile(values, endpoint = null) {
   const origin = window.location.pathname.split("/");
-  const options = { ...data };
+  const options = { ...values };
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.post(`/${endpoint}/`, options);
-  return result;
+  const { data } = await http.post(`/${endpoint}/`, options);
+  return data;
 }
 
-export async function updateProfile(data, id = null, endpoint = null) {
+export async function updateProfile(values, id = null, endpoint = null) {
   const origin = window.location.pathname.split("/");
-  const options = { ...data };
+  const options = { ...values };
 
   if (!id) id = origin[3];
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.patch(`/${endpoint}/${id}/`, options);
-  return result;
+  const { data } = await http.patch(`/${endpoint}/${id}/`, options);
+  return data;
 }
 
 export async function deleteProfile(id = null, endpoint = null) {
@@ -79,8 +79,8 @@ export async function deleteProfile(id = null, endpoint = null) {
   if (!id) id = origin[3];
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.delete(`/${endpoint}/${id}/`);
-  return result;
+  const { data } = await http.delete(`/${endpoint}/${id}/`);
+  return data;
 }
 
 export default {

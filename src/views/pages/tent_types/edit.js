@@ -60,7 +60,7 @@ class Edit extends FormWrapper {
       await this.props.dispatch(loader(true));
       const id = window.location.pathname.split("/")[3];
 
-      const { data } = await getProfile(id);
+      const data = await getProfile(id);
       this.reset.data = data;
 
       this.setState({ data });

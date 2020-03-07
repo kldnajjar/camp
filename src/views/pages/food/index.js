@@ -31,6 +31,7 @@ class Food extends Component {
     },
     sortColumn: { path: "name", order: "asc" },
     selectedItem: { id: null, name: "" },
+    count: null,
 
     showAddModal: false,
     showDeleteModal: false,
@@ -54,8 +55,12 @@ class Food extends Component {
         this.props.dispatch(loader(true));
       }, 200);
 
-      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
-      this.setState({ data: data.results });
+      const { results: data, count } = await getProfilesPerPage(
+        currentPage,
+        pageLimit,
+        sortColumn
+      );
+      this.setState({ data, count });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -86,8 +91,12 @@ class Food extends Component {
     const { pageLimit } = this.state;
     try {
       await this.props.dispatch(loader(true));
-      const data = await getProfilesPerPage(1, pageLimit, sortColumn);
-      this.setState({ data, sortColumn, currentPage: 1 });
+      const { results: data, count } = await getProfilesPerPage(
+        1,
+        pageLimit,
+        sortColumn
+      );
+      this.setState({ data, sortColumn, currentPage: 1, count });
     } catch (err) {
       if (err.response)
         if (err.response.data.msg) toast.error(err.response.data.msg);
@@ -108,13 +117,13 @@ class Food extends Component {
     try {
       const { sortColumn, pageLimit, search } = this.state;
       await this.props.dispatch(loader(true));
-      const data = await getProfilesFilteredBy(
+      const { results: data, count } = await getProfilesFilteredBy(
         1,
         pageLimit,
         sortColumn,
         search
       );
-      this.setState({ data, sortColumn, search, currentPage: 1 });
+      this.setState({ data, sortColumn, search, currentPage: 1, count });
     } catch (err) {
       if (err.response)
         if (err.response.data.msg) toast.error(err.response.data.msg);
@@ -144,14 +153,14 @@ class Food extends Component {
     try {
       await this.props.dispatch(loader(true));
       const currentPage = page.selected + 1;
-      const data = await getProfilesFilteredBy(
+      const { results: data, count } = await getProfilesFilteredBy(
         currentPage,
         pageLimit,
         sortColumn,
         search
       );
 
-      this.setState({ data, currentPage });
+      this.setState({ data, currentPage, count });
     } catch (err) {
     } finally {
       await this.props.dispatch(loader(false));
@@ -190,13 +199,17 @@ class Food extends Component {
       if (pagesCount < currentPage && pagesCount !== 0) {
         currentPage = pagesCount;
       }
-      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
+      const { results: data, count } = await getProfilesPerPage(
+        currentPage,
+        pageLimit,
+        sortColumn
+      );
 
       const selectedItem = { ...info };
       selectedItem.id = {};
       selectedItem.name = "";
 
-      this.setState({ data: data.results, currentPage, selectedItem });
+      this.setState({ data, currentPage, selectedItem, count });
       toast.success("Profile deleted");
     } catch (err) {
       if (err.response)
@@ -215,7 +228,8 @@ class Food extends Component {
       currentPage,
       showAddModal,
       showDeleteModal,
-      selectedItem
+      selectedItem,
+      count
     } = this.state;
     if (!data) return null;
 
@@ -230,8 +244,7 @@ class Food extends Component {
           onSearch={this.searchHandler}
           onToggleSearch={this.toggleSearch}
           searchByType={this.searchByType}
-          // TODO
-          itemCounts={data.length}
+          itemCounts={count}
           pageLimit={pageLimit}
           currentPage={currentPage}
           onPageChange={this.handlePagination}
