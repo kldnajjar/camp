@@ -7,8 +7,21 @@ const Tent_Types = React.lazy(() => import("./views/pages/tent_types"));
 const Tent_Type = React.lazy(() => import("./views/pages/tent_types/edit"));
 const Companies = React.lazy(() => import("./views/pages/companies"));
 const Company = React.lazy(() => import("./views/pages/companies/edit"));
+const Foods = React.lazy(() => import("./views/pages/food"));
+const Food = React.lazy(() => import("./views/pages/food/edit"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+
 const routes = [
+  {
+    path: "/dashboard/food/:id",
+    name: "Profile",
+    component: Food
+  },
+  {
+    path: "/dashboard/food",
+    name: "Companies",
+    component: Foods
+  },
   {
     path: "/dashboard/companies/:id",
     name: "Profile",

@@ -23,6 +23,11 @@ export default {
           name: "Companies",
           url: "/dashboard/companies",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Food",
+          url: "/dashboard/food",
+          icon: "fa fa-cubes"
         }
       ]
     }

@@ -22,16 +22,16 @@ import UnSavedChanges from "../../../components/common/unSavedChanges";
 class Edit extends FormWrapper {
   state = {
     data: {
-      id: null,
       name: null,
-      disabled: false,
-      archived: null
+      id: null,
+      archived: null,
+      disabled: false
     },
     isChanged: false,
     errors: {}
   };
 
-  url = "/dashboard/tent_types";
+  url = "/dashboard/food";
   reset = {};
 
   disabled_option = [
@@ -47,7 +47,9 @@ class Edit extends FormWrapper {
 
   schema = {
     id: Joi.label("ID"),
-    name: Joi.required().label("Name"),
+    name: Joi.string()
+      .required()
+      .label("Name"),
     disabled: Joi.label("Disabled"),
     archived: Joi.label("Archived")
   };
@@ -153,13 +155,12 @@ class Edit extends FormWrapper {
                         "Name",
                         "",
                         "fa fa-info-circle",
-                        "Tent name",
+                        "Food name",
                         "text",
                         true
                       )}
                     </Col>
                   </Row>
-
                   <Row>
                     <Col>
                       {this.renderSelect(
