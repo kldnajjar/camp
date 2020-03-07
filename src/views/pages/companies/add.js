@@ -20,7 +20,9 @@ import { addNewProfile } from "../../../services/profileService";
 class Add extends FormWrapper {
   state = {
     data: {
-      name: null
+      name: null,
+      phone_number: null,
+      email: null
     },
     isChanged: false,
 
@@ -30,7 +32,9 @@ class Add extends FormWrapper {
   schema = {
     name: Joi.string()
       .required()
-      .label("Tent Type Name")
+      .label("Name"),
+    phone_number: Joi.label("Phone Number"),
+    email: Joi.label("Email")
   };
 
   doSubmit = async () => {
@@ -80,9 +84,31 @@ class Add extends FormWrapper {
                     "Name",
                     "",
                     "fa fa-info-circle",
-                    "Tent name",
+                    "Company name",
                     "text",
                     true
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {this.renderInput(
+                    "phone_number",
+                    "Phone number",
+                    "",
+                    "fa fa-info-circle",
+                    "Phone number"
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {this.renderInput(
+                    "email",
+                    "Email",
+                    "",
+                    "fa fa-info-circle",
+                    "Email"
                   )}
                 </Col>
               </Row>

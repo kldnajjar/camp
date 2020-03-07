@@ -13,7 +13,7 @@ import Add from "./add";
 import Delete from "./delete";
 // import Edit from "./edit";
 
-class Tents extends Component {
+class Companies extends Component {
   state = {
     data: null,
 
@@ -38,11 +38,11 @@ class Tents extends Component {
     errors: {}
   };
 
-  url = "/dashboard/tent_types";
+  url = "/dashboard/companies";
   loading = true;
 
   info = {
-    name: "Tent Types",
+    name: "Companies",
     addButton: "Add"
   };
 
@@ -55,7 +55,7 @@ class Tents extends Component {
       }, 200);
 
       const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
-      this.setState({ data });
+      this.setState({ data: data.results });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -194,7 +194,7 @@ class Tents extends Component {
       selectedItem.id = {};
       selectedItem.name = "";
 
-      this.setState({ data, currentPage, selectedItem });
+      this.setState({ data: data.results, currentPage, selectedItem });
       toast.success("Profile deleted");
     } catch (err) {
       if (err.response) toast.error(err.response.data.error.detail);
@@ -263,4 +263,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tents);
+export default connect(mapStateToProps, mapDispatchToProps)(Companies);

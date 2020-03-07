@@ -74,7 +74,7 @@ class Tents extends Component {
         }
 
         this.setState({ errors });
-        toast.error(err.response.data.error.message);
+        toast.error(err.response.data.error.detail);
       }
     } finally {
       setTimeout(() => {
@@ -94,7 +94,7 @@ class Tents extends Component {
       const data = await getProfilesPerPage(1, pageLimit, sortColumn);
       this.setState({ data, sortColumn, currentPage: 1 });
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.message);
+      if (err.response) toast.error(err.response.data.error.detail);
     } finally {
       await this.props.dispatch(loader(false));
     }
@@ -120,7 +120,7 @@ class Tents extends Component {
       );
       this.setState({ data, sortColumn, search, currentPage: 1 });
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.message);
+      if (err.response) toast.error(err.response.data.error.detail);
     } finally {
       await this.props.dispatch(loader(false));
     }
@@ -201,7 +201,7 @@ class Tents extends Component {
       this.setState({ data: data.results, currentPage, selectedItem });
       toast.success("Profile deleted");
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.message);
+      if (err.response) toast.error(err.response.data.error.detail);
     } finally {
       await this.props.dispatch(loader(false));
     }

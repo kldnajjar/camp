@@ -18,6 +18,11 @@ export default {
           name: "Tents",
           url: "/dashboard/tents",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Companies",
+          url: "/dashboard/companies",
+          icon: "fa fa-cubes"
         }
       ]
     }

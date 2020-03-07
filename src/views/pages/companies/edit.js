@@ -22,15 +22,16 @@ import UnSavedChanges from "../../../components/common/unSavedChanges";
 class Edit extends FormWrapper {
   state = {
     data: {
-      id: null,
       name: null,
-      disabled: false
+      phone_number: null,
+      email: null,
+      id: null
     },
     isChanged: false,
     errors: {}
   };
 
-  url = "/dashboard/tent_types";
+  url = "/dashboard/companies";
   reset = {};
 
   disabled_option = [
@@ -46,9 +47,11 @@ class Edit extends FormWrapper {
 
   schema = {
     id: Joi.label("ID"),
-    name: Joi.required().label("Name"),
-    disabled: Joi.label("Disabled"),
-    archived: Joi.label("Archived")
+    name: Joi.string()
+      .required()
+      .label("Name"),
+    phone_number: Joi.label("Phone Number"),
+    email: Joi.label("Email")
   };
 
   async componentDidMount() {
@@ -152,19 +155,31 @@ class Edit extends FormWrapper {
                         "Name",
                         "",
                         "fa fa-info-circle",
-                        "Tent name",
+                        "Company name",
                         "text",
                         true
                       )}
                     </Col>
                   </Row>
-
                   <Row>
                     <Col>
-                      {this.renderSelect(
-                        "disabled",
-                        "Disabled",
-                        this.disabled_option
+                      {this.renderInput(
+                        "phone_number",
+                        "Phone number",
+                        "",
+                        "fa fa-info-circle",
+                        "Phone number"
+                      )}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.renderInput(
+                        "email",
+                        "Email",
+                        "",
+                        "fa fa-info-circle",
+                        "Email"
                       )}
                     </Col>
                   </Row>

@@ -62,7 +62,7 @@ class Add extends FormWrapper {
         }
 
         this.setState({ errors });
-        toast.error(err.response.data.error.message);
+        toast.error(err.response.data.error.detail);
       }
     } finally {
       await this.props.dispatch(loader(false));
