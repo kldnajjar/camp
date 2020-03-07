@@ -17,7 +17,7 @@ class Tents extends Component {
   state = {
     data: null,
 
-    pageLimit: 1,
+    pageLimit: 30,
     currentPage: 1,
     search: {
       isActive: true,
