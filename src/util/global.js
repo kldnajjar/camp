@@ -131,7 +131,7 @@ export function exposeSearchQuery(search) {
   const { searchQuery, filter } = search;
 
   let exposedValue = "";
-  let filterPath = `filters[${filter.path.toLowerCase()}]`;
+  let filterPath = `${filter.path.toLowerCase()}`;
 
   if (typeof searchQuery === "object") {
     if (searchQuery.length) {
@@ -158,7 +158,7 @@ export function getFilterExtraParam(obj) {
   let str = "";
   obj.map(
     item =>
-      (str += `&filters[${item.name}]=${
+      (str += `&${item.name}=${
         item.value.indexOf("able_") !== -1
           ? capitalizeFirstLetter(item.value)
           : item.value

@@ -24,7 +24,7 @@ class TableWrapper extends Component {
       path: "name",
       label: "Name",
       filter: {
-        path: "name_like",
+        path: "name",
         type: "text"
       },
       sort: true,

@@ -25,7 +25,7 @@ class Companies extends Component {
       searchQuery: "",
       filter: {
         searchBy: "Name",
-        path: "name_like",
+        path: "name",
         type: "text"
       }
     },

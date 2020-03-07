@@ -24,7 +24,7 @@ class TableWrapper extends Component {
       path: "name",
       label: "Name",
       filter: {
-        path: "name_like",
+        path: "name",
         type: "text"
       },
       sort: true,
@@ -36,7 +36,7 @@ class TableWrapper extends Component {
       path: "phone_number",
       label: "Phone Number",
       filter: {
-        path: "phone_number_like",
+        path: "phone_number",
         type: "text"
       },
       sort: true,
@@ -47,7 +47,7 @@ class TableWrapper extends Component {
       path: "email",
       label: "Email",
       filter: {
-        path: "email_like",
+        path: "email",
         type: "text"
       },
       sort: true,
