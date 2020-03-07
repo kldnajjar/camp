@@ -27,7 +27,10 @@ export async function getProfilesPerPage(
   endpoint = null
 ) {
   const origin = window.location.pathname.split("/");
-  const options = `?page=${page}&per_page=${limit}&sort[type]=${sortColumn.path}&sort[order]=${sortColumn.order}`;
+  let ordering = sortColumn.path;
+  if (sortColumn.order === "desc") ordering = `-${ordering}`;
+
+  const options = `?page=${page}&per_page=${limit}&ordering=${ordering}&`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
@@ -44,7 +47,10 @@ export async function getProfilesFilteredBy(
 ) {
   const origin = window.location.pathname.split("/");
   const filterPath = exposeSearchQuery(search);
-  const options = `?page=${page}&per_page=${limit}&sort[type]=${sortColumn.path}&${filterPath}sort[order]=${sortColumn.order}`;
+  let ordering = sortColumn.path;
+  if (sortColumn.order === "desc") ordering = `-${ordering}`;
+
+  const options = `?page=${page}&per_page=${limit}${filterPath}ordering=${ordering}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 

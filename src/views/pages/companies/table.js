@@ -57,6 +57,8 @@ class TableWrapper extends Component {
       id: 5,
       path: "archived",
       label: "Archived",
+      sort: true,
+      isResponsive: true,
       filter: {
         path: "archived",
         type: "select",
