@@ -69,9 +69,9 @@ class Edit extends FormWrapper {
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
-        // errors.username = err.response.data.error.detail;
+        // errors.username = err.response.data.error.msg;
         this.setState({ errors });
-        toast.error(err.response.data.error.detail);
+        toast.error(err.response.data.error.msg);
       }
     } finally {
       await this.props.dispatch(loader(false));
@@ -111,7 +111,7 @@ class Edit extends FormWrapper {
         }
 
         this.setState({ errors });
-        toast.error(err.response.data.error.detail);
+        toast.error(err.response.data.error.msg);
       }
     } finally {
       await this.props.dispatch(loader(false));

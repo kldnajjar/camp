@@ -2,5 +2,6 @@ export default {
   tents: "tents",
   tent_types: "tent_types",
   companies: "companies",
-  food: "food"
+  food: "food",
+  meal_types: "meal_types"
 };

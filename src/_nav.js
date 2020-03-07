@@ -28,6 +28,11 @@ export default {
           name: "Food",
           url: "/dashboard/food",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Meal Types",
+          url: "/dashboard/meal_types",
+          icon: "fa fa-cubes"
         }
       ]
     }

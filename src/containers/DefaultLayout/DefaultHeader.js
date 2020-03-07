@@ -31,7 +31,7 @@ class DefaultHeader extends Component {
       window.location = `/login`;
       auth.removeLocalStorage();
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.detail);
+      if (err.response) toast.error(err.response.data.error.msg);
     } finally {
       this.props.dispatch(loader(false));
     }

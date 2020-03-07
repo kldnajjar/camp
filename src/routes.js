@@ -9,9 +9,21 @@ const Companies = React.lazy(() => import("./views/pages/companies"));
 const Company = React.lazy(() => import("./views/pages/companies/edit"));
 const Foods = React.lazy(() => import("./views/pages/food"));
 const Food = React.lazy(() => import("./views/pages/food/edit"));
+const Meal_Types = React.lazy(() => import("./views/pages/meal_types"));
+const Meal_Type = React.lazy(() => import("./views/pages/meal_types/edit"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/meal_types/:id",
+    name: "Profile",
+    component: Meal_Type
+  },
+  {
+    path: "/dashboard/meal_types",
+    name: "Meal Types",
+    component: Meal_Types
+  },
   {
     path: "/dashboard/food/:id",
     name: "Profile",

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
-  getProfiles,
   getProfilesPerPage,
   getProfilesFilteredBy,
   deleteProfile
@@ -14,11 +13,10 @@ import Add from "./add";
 import Delete from "./delete";
 // import Edit from "./edit";
 
-class Tents extends Component {
+class Food extends Component {
   state = {
     data: null,
 
-    tent_types: [],
     pageLimit: 30,
     currentPage: 1,
     search: {
@@ -40,11 +38,11 @@ class Tents extends Component {
     errors: {}
   };
 
-  url = "/dashboard/tents";
+  url = "/dashboard/meal_types";
   loading = true;
 
   info = {
-    name: "Tents",
+    name: "Meal Types",
     addButton: "Add"
   };
 
@@ -57,10 +55,7 @@ class Tents extends Component {
       }, 200);
 
       const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
-      const tent_types = await getProfiles("tent_types");
-      // this.setState({ tent_types, key: key + 1 });
-
-      this.setState({ data: data.results, tent_types });
+      this.setState({ data });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -194,11 +189,12 @@ class Tents extends Component {
         currentPage = pagesCount;
       }
       const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
+
       const selectedItem = { ...info };
       selectedItem.id = {};
       selectedItem.name = "";
 
-      this.setState({ data: data.results, currentPage, selectedItem });
+      this.setState({ data, currentPage, selectedItem });
       toast.success("Profile deleted");
     } catch (err) {
       if (err.response) toast.error(err.response.data.error.msg);
@@ -216,8 +212,7 @@ class Tents extends Component {
       currentPage,
       showAddModal,
       showDeleteModal,
-      selectedItem,
-      tent_types
+      selectedItem
     } = this.state;
     if (!data) return null;
 
@@ -241,14 +236,12 @@ class Tents extends Component {
           onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
-          tent_types={tent_types}
         />
 
         <Add
           showModal={showAddModal}
           onToggle={this.addModalHandler}
           url={this.url}
-          tent_types={tent_types}
         />
 
         <Delete
@@ -270,4 +263,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tents);
+export default connect(mapStateToProps, mapDispatchToProps)(Food);
