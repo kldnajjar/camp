@@ -50,7 +50,7 @@ class TableWrapper extends Component {
       label: "Number of bedrooms",
       filter: {
         path: "capacity",
-        type: "number"
+        type: "text"
       },
       sort: true,
       isResponsive: true

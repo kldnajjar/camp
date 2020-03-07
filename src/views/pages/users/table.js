@@ -37,7 +37,7 @@ class TableWrapper extends Component {
       label: "Phone Number",
       filter: {
         path: "phone_number",
-        type: "number"
+        type: "text"
       },
       sort: true,
       isResponsive: true
