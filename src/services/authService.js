@@ -20,25 +20,19 @@ export async function login(user) {
   const { data } = await http.post(apiEndPointLogin, info);
   const decode = jwtDecode(data.access);
   setToken(data, decode);
-  // setUserInfo(data.user);
+  // setUserInfo(user_info);
   return data.user;
 }
 
-async function setUserInfo({
-  id,
-  email,
-  first_name,
-  last_name,
-  created_at,
-  updated_at
-}) {
+async function setUserInfo({ id, name, phone_number, role, email, is_active }) {
   const info = {
     [id]: {
+      id,
+      name,
+      phone_number,
+      role,
       email,
-      first_name,
-      last_name,
-      created_at,
-      updated_at
+      is_active
     }
   };
 
@@ -118,7 +112,6 @@ export async function validateToken() {
     data.refresh = token.refresh;
     // const items = data;
     setToken(data, decode);
-    // setUserInfo(data);
 
     const newToken = await getToken();
     http.setRequestHeader(newToken);
@@ -139,6 +132,8 @@ export async function handleExpiredToken() {
 async function init() {
   const token = await getToken();
   http.setRequestHeader(token);
+  const { data: user_info } = await http.get(`${apiEndPointLogin}me/`);
+  setUserInfo(user_info);
 }
 
 setInterval(function() {

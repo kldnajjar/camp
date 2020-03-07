@@ -43,6 +43,11 @@ export default {
           name: "Activities",
           url: "/dashboard/activities",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Users",
+          url: "/dashboard/users",
+          icon: "fa fa-cubes"
         }
       ]
     }

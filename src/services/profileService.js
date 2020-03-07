@@ -30,7 +30,7 @@ export async function getProfilesPerPage(
   let ordering = sortColumn.path;
   if (sortColumn.order === "desc") ordering = `-${ordering}`;
 
-  const options = `?page=${page}&per_page=${limit}&ordering=${ordering}&`;
+  const options = `?page=${page}&per_page=${limit}&ordering=${ordering}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 

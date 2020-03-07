@@ -182,7 +182,6 @@ export function convertFromMinToHours(min) {
 }
 
 function getFilterTemplate(filterPath, filter, value) {
-  debugger;
   if (filter.param) {
     if (value) return `${filterPath}${filter.param}=${value}&`;
   } else {

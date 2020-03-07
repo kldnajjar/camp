@@ -15,10 +15,21 @@ const Stay_Types = React.lazy(() => import("./views/pages/stay_types"));
 const Stay_Type = React.lazy(() => import("./views/pages/stay_types/edit"));
 const Activities = React.lazy(() => import("./views/pages/activities"));
 const Activity = React.lazy(() => import("./views/pages/activities/edit"));
-
+const Users = React.lazy(() => import("./views/pages/users"));
+const User = React.lazy(() => import("./views/pages/users/edit"));
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/users/:id",
+    name: "Profile",
+    component: User
+  },
+  {
+    path: "/dashboard/users",
+    name: "Users",
+    component: Users
+  },
   {
     path: "/dashboard/activities/:id",
     name: "Profile",
