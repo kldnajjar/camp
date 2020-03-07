@@ -21,8 +21,11 @@ class Add extends FormWrapper {
   state = {
     data: {
       name: null,
-      capacity: null
+      capacity: null,
+      tent_type: null
     },
+    isChanged: false,
+
     errors: {}
   };
 
@@ -30,7 +33,12 @@ class Add extends FormWrapper {
     name: Joi.string()
       .required()
       .label("Tent Name"),
-    capacity: Joi.label("Tents Number")
+    capacity: Joi.number()
+      .required()
+      .label("Tents Number"),
+    tent_type: Joi.string()
+      .required()
+      .label("Tent Type")
   };
 
   doSubmit = async () => {
@@ -62,7 +70,8 @@ class Add extends FormWrapper {
   };
 
   render() {
-    const { showModal, onToggle } = this.props;
+    const { showModal, onToggle, tent_types } = this.props;
+
     return (
       <Modal
         isOpen={showModal}
@@ -88,9 +97,19 @@ class Add extends FormWrapper {
               </Row>
               <Row>
                 <Col>
+                  {this.renderSelect(
+                    "tent_type",
+                    "Tent Type",
+                    tent_types,
+                    "Select Tent Type"
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
                   {this.renderInput(
                     "capacity",
-                    "Total Nuumber",
+                    "Number of bedrooms",
                     "",
                     "fa fa-info-circle",
                     "Tents Count",

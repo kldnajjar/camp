@@ -30,18 +30,18 @@ class TableWrapper extends Component {
       sort: true,
       isResponsive: true,
       content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.name}</Link>
+    },
+    {
+      id: 3,
+      path: "disabled",
+      label: "Disabled",
+      // filter: {
+      //   path: "disabled",
+      //   type: "select"
+      // },
+      sort: true,
+      isResponsive: true
     }
-    // {
-    //   id: 3,
-    //   path: "capacity",
-    //   label: "Total Number",
-    //   filter: {
-    //     path: "capacity",
-    //     type: "number"
-    //   },
-    //   sort: true,
-    //   isResponsive: true
-    // }
     // {
     //   id: 4,
     //   path: "status",
@@ -65,17 +65,16 @@ class TableWrapper extends Component {
     id: 5,
     label: "Actions",
     isResponsive: false,
-    content: company => (
+    content: obj => (
       <TableActions
-        id={company.id}
-        onEdit={this.props.onEdit && (() => this.props.onEdit(company.id))}
+        id={obj.id}
+        onEdit={this.props.onEdit && (() => this.props.onEdit(obj.id))}
         onDelete={
-          this.props.onDelete &&
-          (() => this.props.onDelete(company.id, company.name))
+          this.props.onDelete && (() => this.props.onDelete(obj.id, obj.name))
         }
-        editLabel="Edit Company"
-        deleteLabel="Delete Company"
-        showLabel="Show Employees"
+        editLabel="Edit"
+        deleteLabel="Delete"
+        showLabel="Show"
       />
     )
   };

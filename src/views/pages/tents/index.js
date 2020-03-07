@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
+  getProfiles,
   getProfilesPerPage,
-  getProfilesFilteredBy
+  getProfilesFilteredBy,
+  deleteProfile
 } from "../../../services/profileService";
 import { loader } from "../../../actions/loaderAction";
 import Table from "./table";
@@ -16,6 +18,7 @@ class Tents extends Component {
   state = {
     data: null,
 
+    tent_types: [],
     pageLimit: 30,
     currentPage: 1,
     search: {
@@ -54,7 +57,10 @@ class Tents extends Component {
       }, 200);
 
       const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
-      this.setState({ data });
+      const tent_types = await getProfiles("tent_types");
+      // this.setState({ tent_types, key: key + 1 });
+
+      this.setState({ data: data.results, tent_types });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -167,6 +173,40 @@ class Tents extends Component {
     this.setState({ selectedItem, showDeleteModal: true });
   };
 
+  deleteModalHandler = () => {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  };
+
+  deleteHandler = async id => {
+    let {
+      data: oldData,
+      currentPage,
+      pageLimit,
+      sortColumn,
+      selectedItem: info
+    } = this.state;
+    try {
+      this.deleteModalHandler();
+      await this.props.dispatch(loader(true));
+      await deleteProfile(id);
+      const pagesCount = Math.ceil((oldData.totalNumber - 1) / pageLimit);
+      if (pagesCount < currentPage && pagesCount !== 0) {
+        currentPage = pagesCount;
+      }
+      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
+      const selectedItem = { ...info };
+      selectedItem.id = {};
+      selectedItem.name = "";
+
+      this.setState({ data: data.results, currentPage, selectedItem });
+      toast.success("Profile deleted");
+    } catch (err) {
+      if (err.response) toast.error(err.response.data.error.message);
+    } finally {
+      await this.props.dispatch(loader(false));
+    }
+  };
+
   render() {
     const {
       data,
@@ -176,14 +216,15 @@ class Tents extends Component {
       currentPage,
       showAddModal,
       showDeleteModal,
-      selectedItem
+      selectedItem,
+      tent_types
     } = this.state;
     if (!data) return null;
 
     return (
       <React.Fragment>
         <Table
-          data={data.result}
+          data={data}
           sortColumn={sortColumn}
           onAdd={this.addModalHandler}
           search={search}
@@ -191,7 +232,8 @@ class Tents extends Component {
           onSearch={this.searchHandler}
           onToggleSearch={this.toggleSearch}
           searchByType={this.searchByType}
-          itemCounts={data.counts}
+          // TODO
+          itemCounts={data.length}
           pageLimit={pageLimit}
           currentPage={currentPage}
           onPageChange={this.handlePagination}
@@ -199,12 +241,14 @@ class Tents extends Component {
           onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
+          tent_types={tent_types}
         />
 
         <Add
           showModal={showAddModal}
           onToggle={this.addModalHandler}
           url={this.url}
+          tent_types={tent_types}
         />
 
         <Delete

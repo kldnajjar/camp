@@ -15,6 +15,7 @@ class Select extends Component {
       classes,
       ...reset
     } = this.props;
+
     let visibleOptions = options.filter(option => option.isVisible === true);
     if (!visibleOptions.length) visibleOptions = options;
     this.keyCount += 1;
@@ -42,7 +43,7 @@ class Select extends Component {
           {visibleOptions.map(option => (
             <option
               key={option.id}
-              value={option.id.toLowerCase()}
+              value={option.id.toString().toLowerCase()}
               // value={option.name.toLowerCase()}
               // selected={option.id === value}
             >

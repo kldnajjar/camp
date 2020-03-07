@@ -33,8 +33,21 @@ class TableWrapper extends Component {
     },
     {
       id: 3,
+      path: "tent_type",
+      label: "Tent Type",
+      sort: false,
+      isResponsive: false,
+      content: obj =>
+        this.props.tent_types.map(tent_type => {
+          let name = "";
+          if (tent_type.id === obj.tent_type) name = tent_type.name;
+          return name;
+        })
+    },
+    {
+      id: 4,
       path: "capacity",
-      label: "Total Number",
+      label: "Number of bedrooms",
       filter: {
         path: "capacity",
         type: "number"
@@ -42,40 +55,22 @@ class TableWrapper extends Component {
       sort: true,
       isResponsive: true
     }
-    // {
-    //   id: 4,
-    //   path: "status",
-    //   label: "Status",
-    //   filter: {
-    //     path: "statuses",
-    //     param: "[]",
-    //     type: "multi-select",
-    //     options: [
-    //       { value: "enabled", label: "Enabled" },
-    //       { value: "disabled", label: "Disabled" }
-    //     ]
-    //   },
-    //   sort: false,
-    //   isResponsive: true,
-    //   content: company => badgeFormatter(company.status)
-    // }
   ];
 
   ActionButtons = {
     id: 5,
     label: "Actions",
     isResponsive: false,
-    content: company => (
+    content: obj => (
       <TableActions
-        id={company.id}
-        onEdit={this.props.onEdit && (() => this.props.onEdit(company.id))}
+        id={obj.id}
+        onEdit={this.props.onEdit && (() => this.props.onEdit(obj.id))}
         onDelete={
-          this.props.onDelete &&
-          (() => this.props.onDelete(company.id, company.name))
+          this.props.onDelete && (() => this.props.onDelete(obj.id, obj.name))
         }
-        editLabel="Edit Company"
-        deleteLabel="Delete Company"
-        showLabel="Show Employees"
+        editLabel="Edit"
+        deleteLabel="Delete"
+        showLabel="Show"
       />
     )
   };

@@ -13,7 +13,11 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import Joi from "joi-browser";
 
-import { getProfile, updateProfile } from "../../../services/profileService";
+import {
+  getProfile,
+  getProfiles,
+  updateProfile
+} from "../../../services/profileService";
 
 import FormWrapper from "../../../components/common/form";
 import { loader } from "../../../actions/loaderAction";
@@ -23,9 +27,12 @@ class Edit extends FormWrapper {
   state = {
     data: {
       id: null,
+      archived: null,
+      capacity: null,
       name: null,
-      capacity: null
+      tent_type: null
     },
+    tent_types: [],
     isChanged: false,
     errors: {}
   };
@@ -34,11 +41,15 @@ class Edit extends FormWrapper {
   reset = {};
 
   schema = {
-    id: Joi.string().label("ID"),
+    id: Joi.label("ID"),
     name: Joi.string()
       .required()
       .label("Tent Name"),
-    capacity: Joi.label("Tents Number")
+    capacity: Joi.label("Tents Number"),
+    tent_type: Joi.string()
+      .required()
+      .label("Tent Type"),
+    archived: Joi.label("Archived")
   };
 
   async componentDidMount() {
@@ -50,9 +61,11 @@ class Edit extends FormWrapper {
       const id = window.location.pathname.split("/")[3];
 
       const { data } = await getProfile(id);
+      const tent_types = await getProfiles("tent_types");
+
       this.reset.data = data;
 
-      this.setState({ data });
+      this.setState({ data, tent_types });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -71,7 +84,7 @@ class Edit extends FormWrapper {
   };
 
   ExitEditMode = () => {
-    this.props.history.push(`${this.url}/${this.state.data.id}`);
+    this.props.history.push(`${this.url}`);
   };
 
   resetHandler = () => {
@@ -106,7 +119,7 @@ class Edit extends FormWrapper {
   };
 
   render() {
-    const { data, isChanged } = this.state;
+    const { data, tent_types, isChanged } = this.state;
     if (!data.id) return null;
 
     return (
@@ -148,7 +161,16 @@ class Edit extends FormWrapper {
                       )}
                     </Col>
                   </Row>
-
+                  <Row>
+                    <Col>
+                      {this.renderSelect(
+                        "tent_type",
+                        "Tent Type",
+                        tent_types,
+                        "Select Tent Type"
+                      )}
+                    </Col>
+                  </Row>
                   <Row>
                     <Col>
                       {this.renderInput(

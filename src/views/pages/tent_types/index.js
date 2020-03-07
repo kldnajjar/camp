@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 
 import {
   getProfilesPerPage,
-  getProfilesFilteredBy
+  getProfilesFilteredBy,
+  deleteProfile
 } from "../../../services/profileService";
 import { loader } from "../../../actions/loaderAction";
 import Table from "./table";
@@ -167,6 +168,41 @@ class Tents extends Component {
     this.setState({ selectedItem, showDeleteModal: true });
   };
 
+  deleteModalHandler = () => {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
+  };
+
+  deleteHandler = async id => {
+    let {
+      data: oldData,
+      currentPage,
+      pageLimit,
+      sortColumn,
+      selectedItem: info
+    } = this.state;
+    try {
+      this.deleteModalHandler();
+      await this.props.dispatch(loader(true));
+      await deleteProfile(id);
+      const pagesCount = Math.ceil((oldData.totalNumber - 1) / pageLimit);
+      if (pagesCount < currentPage && pagesCount !== 0) {
+        currentPage = pagesCount;
+      }
+      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
+
+      const selectedItem = { ...info };
+      selectedItem.id = {};
+      selectedItem.name = "";
+
+      this.setState({ data, currentPage, selectedItem });
+      toast.success("Profile deleted");
+    } catch (err) {
+      if (err.response) toast.error(err.response.data.error.message);
+    } finally {
+      await this.props.dispatch(loader(false));
+    }
+  };
+
   render() {
     const {
       data,
@@ -183,7 +219,7 @@ class Tents extends Component {
     return (
       <React.Fragment>
         <Table
-          data={data.result}
+          data={data}
           sortColumn={sortColumn}
           onAdd={this.addModalHandler}
           search={search}
@@ -191,7 +227,8 @@ class Tents extends Component {
           onSearch={this.searchHandler}
           onToggleSearch={this.toggleSearch}
           searchByType={this.searchByType}
-          itemCounts={data.counts}
+          // TODO
+          itemCounts={data.length}
           pageLimit={pageLimit}
           currentPage={currentPage}
           onPageChange={this.handlePagination}

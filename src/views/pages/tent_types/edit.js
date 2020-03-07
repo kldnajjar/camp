@@ -24,7 +24,7 @@ class Edit extends FormWrapper {
     data: {
       id: null,
       name: null,
-      capacity: null
+      disabled: false
     },
     isChanged: false,
     errors: {}
@@ -33,12 +33,22 @@ class Edit extends FormWrapper {
   url = "/dashboard/tent_types";
   reset = {};
 
+  disabled_option = [
+    {
+      id: "true",
+      name: "Disabled"
+    },
+    {
+      id: "false",
+      name: "Enabled"
+    }
+  ];
+
   schema = {
-    id: Joi.string().label("ID"),
-    name: Joi.string()
-      .required()
-      .label("Tent Name"),
-    capacity: Joi.label("Tents Number")
+    id: Joi.label("ID"),
+    name: Joi.required().label("Name"),
+    disabled: Joi.label("Disabled"),
+    archived: Joi.label("Archived")
   };
 
   async componentDidMount() {
@@ -71,7 +81,7 @@ class Edit extends FormWrapper {
   };
 
   ExitEditMode = () => {
-    this.props.history.push(`${this.url}/${this.state.data.id}`);
+    this.props.history.push(`${this.url}`);
   };
 
   resetHandler = () => {
@@ -151,15 +161,12 @@ class Edit extends FormWrapper {
 
                   <Row>
                     <Col>
-                      {this.renderInput(
-                        "capacity",
-                        "Total Nuumber",
-                        "",
-                        "fa fa-info-circle",
-                        "Tents Count",
-                        "number"
+                      {this.renderSelect(
+                        "disabled",
+                        "Disabled",
+                        this.disabled_option
                       )}
-                    </Col>{" "}
+                    </Col>
                   </Row>
                 </CardBody>
 

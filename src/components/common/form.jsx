@@ -335,7 +335,7 @@ class FormWrapper extends Component {
     return (
       <Select
         name={name}
-        value={data[name]}
+        value={data[name] && data[name].toString()}
         label={label}
         isDisabled={isDisabled}
         placeholder={placeholder}
