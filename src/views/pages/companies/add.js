@@ -43,7 +43,7 @@ class Add extends FormWrapper {
 
     try {
       await this.props.dispatch(loader(true));
-      const { data } = await addNewProfile(oldData);
+      const data = await addNewProfile(oldData);
       this.props.history.push(`${url}/${data.id}`);
     } catch (err) {
       if (err.response) {

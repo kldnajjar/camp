@@ -38,6 +38,11 @@ export default {
           name: "Stay Types",
           url: "/dashboard/stay_types",
           icon: "fa fa-cubes"
+        },
+        {
+          name: "Activities",
+          url: "/dashboard/activities",
+          icon: "fa fa-cubes"
         }
       ]
     }

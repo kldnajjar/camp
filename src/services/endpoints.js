@@ -4,5 +4,6 @@ export default {
   companies: "companies",
   food: "food",
   meal_types: "meal_types",
-  stay_types: "stay_types"
+  stay_types: "stay_types",
+  activities: "activities"
 };
