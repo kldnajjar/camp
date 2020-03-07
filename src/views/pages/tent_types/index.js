@@ -59,7 +59,7 @@ class Tents extends Component {
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
-        const details = err.response.data.error.details;
+        const details = err.response.data.details;
 
         let key;
         for (key in details) {
@@ -69,7 +69,7 @@ class Tents extends Component {
         }
 
         this.setState({ errors });
-        toast.error(err.response.data.error.msg);
+        if (err.response.data.msg) toast.error(err.response.data.msg);
       }
     } finally {
       setTimeout(() => {
@@ -89,7 +89,8 @@ class Tents extends Component {
       const data = await getProfilesPerPage(1, pageLimit, sortColumn);
       this.setState({ data, sortColumn, currentPage: 1 });
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.msg);
+      if (err.response)
+        if (err.response.data.msg) toast.error(err.response.data.msg);
     } finally {
       await this.props.dispatch(loader(false));
     }
@@ -115,7 +116,8 @@ class Tents extends Component {
       );
       this.setState({ data, sortColumn, search, currentPage: 1 });
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.msg);
+      if (err.response)
+        if (err.response.data.msg) toast.error(err.response.data.msg);
     } finally {
       await this.props.dispatch(loader(false));
     }
@@ -197,7 +199,8 @@ class Tents extends Component {
       this.setState({ data, currentPage, selectedItem });
       toast.success("Profile deleted");
     } catch (err) {
-      if (err.response) toast.error(err.response.data.error.msg);
+      if (err.response)
+        if (err.response.data.msg) toast.error(err.response.data.msg);
     } finally {
       await this.props.dispatch(loader(false));
     }

@@ -58,7 +58,7 @@ export async function addNewProfile(data, endpoint = null) {
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.post(`/${endPoints[origin[2]]}/`, options);
+  const result = await http.post(`/${endpoint}/`, options);
   return result;
 }
 
@@ -69,7 +69,7 @@ export async function updateProfile(data, id = null, endpoint = null) {
   if (!id) id = origin[3];
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const result = await http.patch(`/${endPoints[origin[2]]}/${id}/`, options);
+  const result = await http.patch(`/${endpoint}/${id}/`, options);
   return result;
 }
 
@@ -78,7 +78,8 @@ export async function deleteProfile(id = null, endpoint = null) {
 
   if (!id) id = origin[3];
   if (!endpoint) endpoint = endPoints[origin[2]];
-  const result = await http.delete(`/${endPoints[origin[2]]}/${id}/`);
+
+  const result = await http.delete(`/${endpoint}/${id}/`);
   return result;
 }
 

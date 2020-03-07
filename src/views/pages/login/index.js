@@ -79,9 +79,9 @@ class Login extends FormWrapper {
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
-        // errors.username = err.response.data.error.msg;
+        // errors.username = err.response.data.msg;
         this.setState({ errors });
-        toast.error(err.response.data.error.msg);
+        if (err.response.data.msg) toast.error(err.response.data.msg);
       }
     } finally {
       await this.props.dispatch(loader(false));
