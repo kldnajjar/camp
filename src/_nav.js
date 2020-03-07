@@ -6,9 +6,20 @@ export default {
       icon: "icon-speedometer"
     },
     {
-      name: "Tents Profile",
-      url: "/dashboard/tents",
-      icon: "fa fa-cubes"
+      name: "Profiles",
+      icon: "icon-puzzle",
+      children: [
+        {
+          name: "Tent Types",
+          url: "/dashboard/tent_types",
+          icon: "fa fa-cubes"
+        },
+        {
+          name: "Tents",
+          url: "/dashboard/tents",
+          icon: "fa fa-cubes"
+        }
+      ]
     }
   ]
 };

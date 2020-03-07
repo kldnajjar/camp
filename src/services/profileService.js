@@ -40,7 +40,7 @@ export async function updateProfile(data, id = null) {
 
   if (!id) id = origin[3];
 
-  const result = await http.dispatch(`${endPoints[origin[2]]}/${id}`, options);
+  const result = await http.patch(`${endPoints[origin[2]]}/${id}`, options);
   return result;
 }
 

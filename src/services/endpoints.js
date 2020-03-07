@@ -1,3 +1,4 @@
 export default {
-  tents: "/tents/"
+  tents: "/tents/",
+  tent_types: "/tent_types/"
 };

@@ -6,7 +6,7 @@ import TableActions from "../../../components/common/tableActions";
 // import { dateFormatter, badgeFormatter } from "../../../util/global";
 
 class TableWrapper extends Component {
-  url = "/dashboard/tents";
+  url = "/dashboard/tent_types";
   columns = [
     {
       id: 1,
@@ -30,18 +30,18 @@ class TableWrapper extends Component {
       sort: true,
       isResponsive: true,
       content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.name}</Link>
-    },
-    {
-      id: 3,
-      path: "capacity",
-      label: "Total Number",
-      filter: {
-        path: "capacity",
-        type: "number"
-      },
-      sort: true,
-      isResponsive: true
     }
+    // {
+    //   id: 3,
+    //   path: "capacity",
+    //   label: "Total Number",
+    //   filter: {
+    //     path: "capacity",
+    //     type: "number"
+    //   },
+    //   sort: true,
+    //   isResponsive: true
+    // }
     // {
     //   id: 4,
     //   path: "status",
