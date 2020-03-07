@@ -65,8 +65,6 @@ class TableWrapper extends Component {
           { value: "false", label: "No" }
         ]
       },
-      sort: true,
-      isResponsive: true,
       content: obj => {
         let value = "No";
         if (obj.archived) value = "Yes";
