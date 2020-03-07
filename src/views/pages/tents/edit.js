@@ -27,10 +27,10 @@ class Edit extends FormWrapper {
   state = {
     data: {
       id: null,
-      archived: null,
-      capacity: null,
       name: null,
-      tent_type: null
+      tent_type: null,
+      capacity: null,
+      archived: null
     },
     tent_types: [],
     isChanged: false,
@@ -180,7 +180,16 @@ class Edit extends FormWrapper {
                         "Tents Count",
                         "number"
                       )}
-                    </Col>{" "}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.renderSelect(
+                        "archived",
+                        "Archived",
+                        this.disabled_option
+                      )}
+                    </Col>
                   </Row>
                 </CardBody>
 

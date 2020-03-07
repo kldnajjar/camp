@@ -37,11 +37,11 @@ class Edit extends FormWrapper {
   disabled_option = [
     {
       id: "true",
-      name: "Disabled"
+      name: "Yes"
     },
     {
       id: "false",
-      name: "Enabled"
+      name: "No"
     }
   ];
 
@@ -166,6 +166,15 @@ class Edit extends FormWrapper {
                       {this.renderSelect(
                         "disabled",
                         "Disabled",
+                        this.disabled_option
+                      )}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.renderSelect(
+                        "archived",
+                        "Archived",
                         this.disabled_option
                       )}
                     </Col>

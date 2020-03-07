@@ -134,11 +134,8 @@ export function exposeSearchQuery(search) {
   let filterPath = `${filter.path.toLowerCase()}`;
 
   if (typeof searchQuery === "object") {
-    if (searchQuery.length) {
-      filterPath = searchQuery.map(
-        item =>
-          (exposedValue += getFilterTemplate(filterPath, filter, item.value))
-      );
+    if (Object.entries(searchQuery).length) {
+      exposedValue += getFilterTemplate(filterPath, filter, searchQuery.value);
     } else {
       const date = new Date(searchQuery).getTime();
       exposedValue = getFilterTemplate(filterPath, filter, date);
@@ -185,6 +182,7 @@ export function convertFromMinToHours(min) {
 }
 
 function getFilterTemplate(filterPath, filter, value) {
+  debugger;
   if (filter.param) {
     if (value) return `${filterPath}${filter.param}=${value}&`;
   } else {

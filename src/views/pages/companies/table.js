@@ -52,11 +52,29 @@ class TableWrapper extends Component {
       },
       sort: true,
       isResponsive: true
+    },
+    {
+      id: 5,
+      path: "archived",
+      label: "Archived",
+      filter: {
+        path: "archived",
+        type: "select",
+        options: [
+          { value: "true", label: "Yes" },
+          { value: "false", label: "No" }
+        ]
+      },
+      content: obj => {
+        let value = "No";
+        if (obj.archived) value = "Yes";
+        return value;
+      }
     }
   ];
 
   ActionButtons = {
-    id: 5,
+    id: 6,
     label: "Actions",
     isResponsive: false,
     content: obj => (

@@ -146,6 +146,16 @@ function getSearchFieldDependOnColumn(search, onChange, autoCompleteOptions) {
       />
     );
 
+  if (type === "select")
+    return (
+      <Select
+        value={searchQuery}
+        placeholder={filter.placeholder}
+        options={filter.options}
+        onChange={onChange}
+      />
+    );
+
   if (type === "multi-select")
     return (
       <Select

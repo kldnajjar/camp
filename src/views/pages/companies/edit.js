@@ -25,7 +25,8 @@ class Edit extends FormWrapper {
       name: null,
       phone_number: null,
       email: null,
-      id: null
+      id: null,
+      archived: null
     },
     isChanged: false,
     errors: {}
@@ -37,11 +38,11 @@ class Edit extends FormWrapper {
   disabled_option = [
     {
       id: "true",
-      name: "Disabled"
+      name: "Yes"
     },
     {
       id: "false",
-      name: "Enabled"
+      name: "No"
     }
   ];
 
@@ -51,7 +52,8 @@ class Edit extends FormWrapper {
       .required()
       .label("Name"),
     phone_number: Joi.label("Phone Number"),
-    email: Joi.label("Email")
+    email: Joi.label("Email"),
+    archived: Joi.label("Archived")
   };
 
   async componentDidMount() {
@@ -180,6 +182,15 @@ class Edit extends FormWrapper {
                         "",
                         "fa fa-info-circle",
                         "Email"
+                      )}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.renderSelect(
+                        "archived",
+                        "Archived",
+                        this.disabled_option
                       )}
                     </Col>
                   </Row>

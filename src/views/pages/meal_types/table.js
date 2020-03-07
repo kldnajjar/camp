@@ -35,12 +35,39 @@ class TableWrapper extends Component {
       id: 3,
       path: "disabled",
       label: "Disabled",
-      // filter: {
-      //   path: "disabled",
-      //   type: "select"
-      // },
+      filter: {
+        path: "disabled",
+        type: "select",
+        options: [
+          { value: "true", label: "Yes" },
+          { value: "false", label: "No" }
+        ]
+      },
       sort: true,
-      isResponsive: true
+      isResponsive: true,
+      content: obj => {
+        let value = "No";
+        if (obj.disabled) value = "Yes";
+        return value;
+      }
+    },
+    {
+      id: 4,
+      path: "archived",
+      label: "Archived",
+      filter: {
+        path: "archived",
+        type: "select",
+        options: [
+          { value: "true", label: "Yes" },
+          { value: "false", label: "No" }
+        ]
+      },
+      content: obj => {
+        let value = "No";
+        if (obj.archived) value = "Yes";
+        return value;
+      }
     }
   ];
 
