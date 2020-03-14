@@ -52,6 +52,17 @@ class Edit extends FormWrapper {
     archived: Joi.label("Archived")
   };
 
+  disabled_option = [
+    {
+      id: "true",
+      name: "Yes"
+    },
+    {
+      id: "false",
+      name: "No"
+    }
+  ];
+
   async componentDidMount() {
     let { errors: errs } = this.state;
     try {
@@ -174,7 +185,7 @@ class Edit extends FormWrapper {
                     <Col>
                       {this.renderInput(
                         "capacity",
-                        "Total Nuumber",
+                        "Total Number",
                         "",
                         "fa fa-info-circle",
                         "Tents Count",
