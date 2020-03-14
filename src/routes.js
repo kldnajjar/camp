@@ -17,9 +17,26 @@ const Activities = React.lazy(() => import("./views/pages/activities"));
 const Activity = React.lazy(() => import("./views/pages/activities/edit"));
 const Users = React.lazy(() => import("./views/pages/users"));
 const User = React.lazy(() => import("./views/pages/users/edit"));
+const Food_Reservations = React.lazy(() =>
+  import("./views/pages/food_reservations")
+);
+const Food_Reservation = React.lazy(() =>
+  import("./views/pages/food_reservations/edit")
+);
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/food_reservations/:id",
+    name: "Profile",
+    component: Food_Reservation
+  },
+  {
+    path: "/dashboard/food_reservations",
+    name: "Food Reservations",
+    component: Food_Reservations
+  },
   {
     path: "/dashboard/users/:id",
     name: "Profile",

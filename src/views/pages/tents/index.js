@@ -18,7 +18,7 @@ class Tents extends Component {
   state = {
     data: null,
 
-    tent_types: [],
+    tent_types_options: [],
     pageLimit: 30,
     currentPage: 1,
     search: {
@@ -62,9 +62,8 @@ class Tents extends Component {
         pageLimit,
         sortColumn
       );
-      const { results: tent_types } = await getProfiles("tent_types");
-
-      this.setState({ data, tent_types, count });
+      const { results: tent_types_options } = await getProfiles("tent_types");
+      this.setState({ data, tent_types_options, count });
     } catch (err) {
       if (err.response) {
         const errors = { ...errs };
@@ -232,7 +231,7 @@ class Tents extends Component {
       showAddModal,
       showDeleteModal,
       selectedItem,
-      tent_types,
+      tent_types_options,
       count
     } = this.state;
     if (!data) return null;
@@ -256,14 +255,14 @@ class Tents extends Component {
           onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
-          tent_types={tent_types}
+          tent_types_options={tent_types_options}
         />
 
         <Add
           showModal={showAddModal}
           onToggle={this.addModalHandler}
           url={this.url}
-          tent_types={tent_types}
+          tent_types_options={tent_types_options}
         />
 
         <Delete

@@ -67,6 +67,7 @@
     "react-redux": "^7.2.0",
     "react-router-config": "^5.0.1",
     "react-router-dom": "^5.1.2",
+    "react-scroll": "^1.7.16",
     "react-select": "^1.3.0",
     "react-test-renderer": "^16.8.6",
     "react-text-mask-hoc": "^0.11.0",

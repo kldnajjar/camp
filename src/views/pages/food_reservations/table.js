@@ -6,7 +6,18 @@ import TableActions from "../../../components/common/tableActions";
 // import { dateFormatter, badgeFormatter } from "../../../util/global";
 
 class TableWrapper extends Component {
-  url = "/dashboard/tents";
+  url = "/dashboard/food_reservations";
+  reservation_type_options = [
+    {
+      id: "company",
+      name: "Company"
+    },
+    {
+      id: "individual",
+      name: "Individual"
+    }
+  ];
+
   columns = [
     {
       id: 1,
@@ -21,35 +32,51 @@ class TableWrapper extends Component {
     },
     {
       id: 2,
-      path: "name",
-      label: "Name",
+      path: "reservation_type",
+      label: "Reservation Type",
       filter: {
-        path: "name",
-        type: "text"
+        path: "reservation_type",
+        type: "select",
+        options: [
+          {
+            value: "company",
+            label: "Company"
+          },
+          {
+            value: "individual",
+            label: "Individual"
+          }
+        ]
       },
       sort: true,
       isResponsive: true,
-      content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.name}</Link>
+      content: obj => {
+        let value = "";
+        this.props.reservation_type_options.map(reservation_type => {
+          if (reservation_type.id === obj.reservation_type)
+            value = reservation_type.name;
+          return reservation_type;
+        });
+        return <Link to={`${this.url}/${obj.id}`}>{value}</Link>;
+      }
     },
     {
       id: 3,
-      path: "tent_type",
-      label: "Tent Type",
+      path: "contact_name",
+      label: "Contact Name",
+      filter: {
+        path: "contact_name",
+        type: "text"
+      },
       sort: false,
-      isResponsive: false,
-      content: obj =>
-        this.props.tent_types_options.map(tent_type => {
-          let name = "";
-          if (tent_type.id === obj.tent_type) name = tent_type.name;
-          return name;
-        })
+      isResponsive: false
     },
     {
       id: 4,
-      path: "capacity",
-      label: "Number of bedrooms",
+      path: "contact_number",
+      label: "Contact Number",
       filter: {
-        path: "capacity",
+        path: "contact_name",
         type: "text"
       },
       sort: true,
@@ -57,28 +84,30 @@ class TableWrapper extends Component {
     },
     {
       id: 5,
-      path: "archived",
-      label: "Archived",
-      sort: true,
-      isResponsive: true,
+      path: "reservation_date",
+      label: "Reservation Date",
       filter: {
-        path: "archived",
-        type: "select",
-        options: [
-          { value: "true", label: "Yes" },
-          { value: "false", label: "No" }
-        ]
+        path: "reservation_date",
+        type: "date"
       },
-      content: obj => {
-        let value = "No";
-        if (obj.archived) value = "Yes";
-        return value;
-      }
+      sort: true,
+      isResponsive: true
+    },
+    {
+      id: 6,
+      path: "guests_count",
+      label: "Guests Count",
+      filter: {
+        path: "guests_count",
+        type: "text"
+      },
+      sort: true,
+      isResponsive: true
     }
   ];
 
   ActionButtons = {
-    id: 6,
+    id: 7,
     label: "Actions",
     isResponsive: false,
     content: obj => (

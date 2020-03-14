@@ -70,7 +70,7 @@ class Add extends FormWrapper {
   };
 
   render() {
-    const { showModal, onToggle, tent_types } = this.props;
+    const { showModal, onToggle, tent_types_options } = this.props;
 
     return (
       <Modal
@@ -100,7 +100,7 @@ class Add extends FormWrapper {
                   {this.renderSelect(
                     "tent_type",
                     "Tent Type",
-                    tent_types,
+                    tent_types_options,
                     "Select Tent Type"
                   )}
                 </Col>

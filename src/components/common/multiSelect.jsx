@@ -11,6 +11,7 @@ class MultiSelect extends Component {
       options,
       error,
       selected = [],
+      placeholder,
       onChange,
       ...reset
     } = this.props;
@@ -30,6 +31,7 @@ class MultiSelect extends Component {
           value={selected}
           options={this.options}
           onChange={onChange}
+          placeholder={placeholder}
           multi
           {...reset}
         />

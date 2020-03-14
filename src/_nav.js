@@ -6,6 +6,11 @@ export default {
       icon: "icon-speedometer"
     },
     {
+      name: "Food Reservations",
+      url: "/dashboard/food_reservations",
+      icon: "icon-puzzle"
+    },
+    {
       name: "Profiles",
       icon: "icon-puzzle",
       children: [

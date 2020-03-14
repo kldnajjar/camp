@@ -4,19 +4,21 @@ import { exposeSearchQuery } from "../util/global";
 
 export async function getProfiles(endpoint = null) {
   const origin = window.location.pathname.split("/");
+  const options = `?ordering=name`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const { data } = await http.get(`/${endpoint}/`);
+  const { data } = await http.get(`/${endpoint}/${options}`);
   return data;
 }
 
 export async function getProfile(id, endpoint = null) {
   const origin = window.location.pathname.split("/");
+  const options = `?ordering=name`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
-  const { data } = await http.get(`/${endpoint}/${id}/`);
+  const { data } = await http.get(`/${endpoint}/${id}/${options}`);
   return data;
 }
 
@@ -50,7 +52,27 @@ export async function getProfilesFilteredBy(
   let ordering = sortColumn.path;
   if (sortColumn.order === "desc") ordering = `-${ordering}`;
 
-  const options = `?page=${page}&per_page=${limit}${filterPath}ordering=${ordering}`;
+  const options = `?page=${page}&per_page=${limit}&${filterPath}ordering=${ordering}`;
+
+  if (!endpoint) endpoint = endPoints[origin[2]];
+
+  const { data } = await http.get(`/${endpoint}/${options}`);
+  return data;
+}
+
+export async function getProfilesByFilters(
+  page,
+  limit,
+  sortColumn,
+  search,
+  endpoint = null
+) {
+  const origin = window.location.pathname.split("/");
+
+  let ordering = sortColumn.path;
+  if (sortColumn.order === "desc") ordering = `-${ordering}`;
+
+  const options = `?page=${page}&per_page=${limit}&${search}&ordering=${ordering}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 
@@ -94,6 +116,7 @@ export default {
   getProfile,
   getProfilesPerPage,
   getProfilesFilteredBy,
+  getProfilesByFilters,
   addNewProfile,
   updateProfile,
   deleteProfile

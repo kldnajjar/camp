@@ -46,6 +46,7 @@ class FormWrapper extends Component {
 
     const data = { ...this.state.data };
     data[input.name] = input.value;
+
     this.setState({ data, errors, isChanged: true });
   };
 
@@ -135,9 +136,9 @@ class FormWrapper extends Component {
   };
 
   handleMultiSelectChange = (name, value) => {
-    const { multiSelect } = this.state;
-    multiSelect[name] = value;
-    this.setState({ multiSelect, isChanged: true });
+    const { data } = this.state;
+    data[name] = value;
+    this.setState({ data, isChanged: true });
   };
 
   handleAutoCompleteChange = (obj, value) => {
@@ -347,16 +348,27 @@ class FormWrapper extends Component {
     );
   };
 
-  renderMultiSelect = (name, label, options, customOnChange = null) => {
-    const { multiSelect, errors } = this.state;
+  renderMultiSelect = (
+    name,
+    label,
+    options,
+    placeholder = "",
+    customOnChange = null,
+    items = null
+  ) => {
+    let { data, errors } = this.state;
+    if (items) data = items;
+
     return (
       <MultiSelect
         name={name}
-        selected={multiSelect[name]}
+        selected={data[name]}
         label={label}
+        placeholder={placeholder}
         options={options}
         onChange={
-          customOnChange || this.handleMultiSelectChange.bind(this, name)
+          (customOnChange && customOnChange.bind(this, name)) ||
+          this.handleMultiSelectChange.bind(this, name)
         }
         error={errors[name] || ""}
       />
@@ -368,7 +380,7 @@ class FormWrapper extends Component {
     label,
     placeholder = "Select a date",
     isDisable = false,
-    storedType = "date_time",
+    storedType = "date_only",
     displayType = "date_only",
     timeDefaultFormat = {
       hours: "00",

@@ -16,12 +16,12 @@ class Select extends Component {
       ...reset
     } = this.props;
 
-    let visibleOptions = options;
-    if (!visibleOptions) return null;
+    // let visibleOptions = options;
+    // if (!visibleOptions) return null;
 
-    // let visibleOptions = options.filter(option => option.isVisible === true);
-    // if (!visibleOptions.length) visibleOptions = options;
-    // this.keyCount += 1;
+    let visibleOptions = options.filter(option => option.isVisible === true);
+    if (!visibleOptions.length) visibleOptions = options;
+    this.keyCount += 1;
 
     return (
       <div className="select-field form-group" key={this.keyCount}>

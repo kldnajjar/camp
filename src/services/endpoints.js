@@ -6,5 +6,6 @@ export default {
   meal_types: "meal_types",
   stay_types: "stay_types",
   activities: "activities",
-  users: "users"
+  users: "users",
+  food_reservations: "food_reservations"
 };
