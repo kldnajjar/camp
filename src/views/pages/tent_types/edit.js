@@ -169,15 +169,6 @@ class Edit extends FormWrapper {
                       )}
                     </Col>
                   </Row>
-                  <Row>
-                    <Col>
-                      {this.renderSelect(
-                        "archived",
-                        "Archived",
-                        this.disabled_option
-                      )}
-                    </Col>
-                  </Row>
                 </CardBody>
 
                 <CardFooter>

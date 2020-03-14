@@ -188,8 +188,8 @@ class Edit extends FormWrapper {
                   <Row>
                     <Col>
                       {this.renderSelect(
-                        "archived",
-                        "Archived",
+                        "disabled",
+                        "Disabled",
                         this.disabled_option
                       )}
                     </Col>
