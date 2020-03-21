@@ -6,9 +6,19 @@ export default {
       icon: "icon-speedometer"
     },
     {
+      name: "Stay Reservations",
+      url: "/dashboard/stay_reservations",
+      icon: "icon-puzzle"
+    },
+    {
       name: "Food Reservations",
       url: "/dashboard/food_reservations",
       icon: "icon-puzzle"
+    },
+    {
+      name: "Companies",
+      url: "/dashboard/companies",
+      icon: "fa fa-cubes"
     },
     {
       name: "Profiles",
@@ -22,11 +32,6 @@ export default {
         {
           name: "Tents",
           url: "/dashboard/tents",
-          icon: "fa fa-cubes"
-        },
-        {
-          name: "Companies",
-          url: "/dashboard/companies",
           icon: "fa fa-cubes"
         },
         {

@@ -17,6 +17,7 @@ const Activities = React.lazy(() => import("./views/pages/activities"));
 const Activity = React.lazy(() => import("./views/pages/activities/edit"));
 const Users = React.lazy(() => import("./views/pages/users"));
 const User = React.lazy(() => import("./views/pages/users/edit"));
+
 const Food_Reservations = React.lazy(() =>
   import("./views/pages/food_reservations")
 );
@@ -24,9 +25,25 @@ const Food_Reservation = React.lazy(() =>
   import("./views/pages/food_reservations/edit")
 );
 
+const Stay_Reservations = React.lazy(() =>
+  import("./views/pages/stay_reservations")
+);
+const Stay_Reservation = React.lazy(() =>
+  import("./views/pages/stay_reservations/edit")
+);
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/stay_reservations/:id",
+    name: "Profile",
+    component: Stay_Reservation
+  },
+  {
+    path: "/dashboard/stay_reservations",
+    name: "Food Reservations",
+    component: Stay_Reservations
+  },
   {
     path: "/dashboard/food_reservations/:id",
     name: "Profile",

@@ -48,13 +48,17 @@ class Edit extends FormWrapper {
     meal_types_options: [],
     food_options: [],
     company_options: [],
+    tent_options: [],
+    tent_types_options: [],
+    stay_types_options: [],
+    activities_options: [],
 
     isChanged: false,
 
     errors: {}
   };
 
-  url = "/dashboard/food_reservations";
+  url = "/dashboard/stay_reservations";
   reset = {};
 
   schema = {
@@ -69,16 +73,23 @@ class Edit extends FormWrapper {
     contact_number: Joi.label("Contact Number"),
     contact_email: Joi.label("Contact Email"),
     guests_count: Joi.label("Guests Count"),
-    reservation_date: Joi.date()
-      .required()
-      .label("Reservation Date"),
     company: Joi.label("Company Name"),
     reservation_number: Joi.label("Reservation Number"),
     status: Joi.label("Reservation Status"),
     notes: Joi.label("Notes"),
 
     created_at: Joi.label("created_at"),
-    updated_at: Joi.label("updated_at")
+    updated_at: Joi.label("updated_at"),
+
+    reserved_from: Joi.date()
+      .required()
+      .label("Reservation From"),
+    reserved_to: Joi.date()
+      .required()
+      .label("Reservation To"),
+    tent_id: Joi.label("Tent"),
+    stay_type_id: Joi.label("Tent Type"),
+    activities: Joi.label("Activity")
   };
 
   reservation_type_options = [
@@ -124,6 +135,10 @@ class Edit extends FormWrapper {
       const { results: meal_types_options } = await getProfiles("meal_types");
       const { results: food_options } = await getProfiles("food");
       const { results: company_options } = await getProfiles("companies");
+      const { results: tent_types_options } = await getProfiles("tent_types");
+      const { results: tent_options } = await getProfiles("tents");
+      const { results: stay_types_options } = await getProfiles("stay_types");
+      const { results: activities_options } = await getProfiles("activities");
 
       this.reset.data = data;
 
@@ -131,7 +146,11 @@ class Edit extends FormWrapper {
         data,
         meal_types_options,
         food_options,
-        company_options
+        company_options,
+        tent_types_options,
+        tent_options,
+        stay_types_options,
+        activities_options
       });
     } catch (err) {
       if (err.response) {
@@ -191,6 +210,9 @@ class Edit extends FormWrapper {
       meal_types_options,
       food_options,
       company_options,
+      activities_options,
+      tent_options,
+      stay_types_options,
       isChanged
     } = this.state;
     if (!data.id) return null;
@@ -274,9 +296,13 @@ class Edit extends FormWrapper {
                     </Col>
                     <Col>
                       {this.renderDatePicker(
-                        "reservation_date",
-                        "Reservation Date"
+                        "reserved_from",
+                        "Reservation From"
                       )}
+                    </Col>
+
+                    <Col>
+                      {this.renderDatePicker("reserved_to", "Reservation To")}
                     </Col>
                   </Row>
                   {company_information}
@@ -291,7 +317,24 @@ class Edit extends FormWrapper {
                       {this.renderInput("contact_email", "Contact Email")}
                     </Col>
                   </Row>
-
+                  <Row>
+                    <Col>
+                      {this.renderSelect(
+                        "tent_id",
+                        "Tent",
+                        tent_options,
+                        "Choose Tent"
+                      )}
+                    </Col>
+                    <Col>
+                      {this.renderSelect(
+                        "stay_type_id",
+                        "Stay Type",
+                        stay_types_options,
+                        "Choose Stay Type"
+                      )}
+                    </Col>
+                  </Row>
                   <Row>
                     <Col>
                       {this.renderInput(
@@ -323,6 +366,14 @@ class Edit extends FormWrapper {
                         "Food",
                         food_options,
                         "Choose Food"
+                      )}
+                    </Col>
+                    <Col>
+                      {this.renderMultiSelect(
+                        "activities",
+                        "Activities",
+                        activities_options,
+                        "Choose Activity"
                       )}
                     </Col>
                   </Row>

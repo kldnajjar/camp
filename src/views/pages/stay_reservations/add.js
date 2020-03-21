@@ -28,7 +28,11 @@ class Add extends FormWrapper {
       contact_number: null,
       contact_email: null,
       guests_count: 1,
-      reservation_date: null,
+      reserved_from: null,
+      reserved_to: null,
+      tent_id: null,
+      stay_type_id: null,
+      activities: null,
 
       company_id: null,
       notes: null,
@@ -48,16 +52,24 @@ class Add extends FormWrapper {
     contact_number: Joi.label("Contact Number"),
     contact_email: Joi.label("Contact Email"),
     guests_count: Joi.label("Guests Count"),
-    reservation_date: Joi.date()
-      .required()
-      .label("Reservation Date"),
     company_id: Joi.label("Company Name"),
     notes: Joi.label("Notes"),
-    reservation_number: Joi.label("Reservation Number")
+    reservation_number: Joi.label("Reservation Number"),
+
+    reserved_from: Joi.date()
+      .required()
+      .label("Reservation From"),
+    reserved_to: Joi.date()
+      .required()
+      .label("Reservation To"),
+    tent_id: Joi.label("Tent"),
+    stay_type_id: Joi.label("Tent Type"),
+    activities: Joi.label("Activity")
   };
 
   doSubmit = async () => {
-    let { data: oldData, errors: errs } = this.state;
+    let { data, errors: errs } = this.state;
+    const oldData = { ...data };
     const { url } = this.props;
 
     try {
@@ -66,6 +78,12 @@ class Add extends FormWrapper {
       if (oldData.food_ids) {
         const food_ids = oldData.food_ids.map(food => food.value);
         oldData.food_ids = food_ids;
+      }
+
+      if (oldData.activities) {
+        const activities = oldData.activities.map(activity => activity.value);
+        debugger;
+        oldData.activities = activities;
       }
 
       const data = await addNewProfile(oldData);
@@ -97,7 +115,10 @@ class Add extends FormWrapper {
       meal_types_options,
       food_options,
       company_options,
-      reservation_type_options
+      reservation_type_options,
+      activities_options,
+      tent_options,
+      stay_types_options
     } = this.props;
 
     const { data } = this.state;
@@ -140,11 +161,13 @@ class Add extends FormWrapper {
                     reservation_type_options
                   )}
                 </Col>
+
                 <Col>
-                  {this.renderDatePicker(
-                    "reservation_date",
-                    "Reservation Date"
-                  )}
+                  {this.renderDatePicker("reserved_from", "Reservation From")}
+                </Col>
+
+                <Col>
+                  {this.renderDatePicker("reserved_to", "Reservation To")}
                 </Col>
               </Row>
               {company_information}
@@ -155,7 +178,24 @@ class Add extends FormWrapper {
                 </Col>
                 <Col>{this.renderInput("contact_email", "Contact Email")}</Col>
               </Row>
-
+              <Row>
+                <Col>
+                  {this.renderSelect(
+                    "tent_id",
+                    "Tent",
+                    tent_options,
+                    "Choose Tent"
+                  )}
+                </Col>
+                <Col>
+                  {this.renderSelect(
+                    "stay_type_id",
+                    "Stay Type",
+                    stay_types_options,
+                    "Choose Stay Type"
+                  )}
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   {this.renderInput(
@@ -171,7 +211,6 @@ class Add extends FormWrapper {
                   {this.renderInput("price", "Price", "", "", "", "number")}
                 </Col>
               </Row>
-
               <Row>
                 <Col>
                   {this.renderSelect(
@@ -187,6 +226,16 @@ class Add extends FormWrapper {
                     "Food",
                     food_options,
                     "Choose Food"
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {this.renderMultiSelect(
+                    "activities",
+                    "Activities",
+                    activities_options,
+                    "Choose Activity"
                   )}
                 </Col>
               </Row>
