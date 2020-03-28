@@ -23,8 +23,16 @@
 
 .confirmed-bg {
   background-color: rgba(77, 189, 116, 0.2) !important;
+
+  &:hover {
+    background-color: rgba(77, 189, 116, 0.3) !important;
+  }
 }
 
 .cancelled-bg {
   background-color: rgba(246, 60, 58, 0.2) !important;
+
+  &:hover {
+    background-color: rgba(246, 60, 58, 0.3) !important;
+  }
 }
