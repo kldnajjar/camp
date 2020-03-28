@@ -78,9 +78,11 @@ class Add extends FormWrapper {
         oldData.food_ids = food_ids;
       }
 
-      if (oldData.activities) {
-        const activities = oldData.activities.map(activity => activity.value);
-        oldData.activities = activities;
+      if (oldData.activities_ids) {
+        const activities = oldData.activities_ids.map(
+          activity => activity.value
+        );
+        oldData.activities_ids = activities;
       }
 
       const data = await addNewProfile(oldData);
