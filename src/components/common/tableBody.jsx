@@ -21,11 +21,11 @@ class TableBody extends Component {
   };
 
   render() {
-    const { items } = this.props;
+    const { items, isColored } = this.props;
     return (
       <tbody>
         {items.map(item => (
-          <tr key={item.id}>
+          <tr key={item.id} className={isColored && `${item.status}-bg`}>
             {this.renderColumnDependOnScreenSize(this.props, item)}
           </tr>
         ))}

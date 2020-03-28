@@ -120,7 +120,8 @@ class TableWrapper extends Component {
       currentPage,
       onPageChange,
       onAdd,
-      info
+      info,
+      isColored = null
     } = this.props;
     return (
       <ConfigurableTable
@@ -139,6 +140,7 @@ class TableWrapper extends Component {
         onPageChange={onPageChange}
         onAdd={onAdd}
         info={info}
+        isColored={isColored}
       />
     );
   }

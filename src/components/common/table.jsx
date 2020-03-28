@@ -37,7 +37,8 @@ class ConfigurableTable extends Component {
       onPageChange,
       onAdd,
       autoCompleteOptions,
-      info
+      info,
+      isColored = null
     } = this.props;
 
     return (
@@ -97,6 +98,7 @@ class ConfigurableTable extends Component {
                         onEdit={onEdit}
                         onDelete={onDelete}
                         onShow={onShow}
+                        isColored={isColored}
                       />
                     </Table>
                   </div>

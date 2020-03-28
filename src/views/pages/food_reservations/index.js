@@ -136,11 +136,11 @@ class FoodReservations extends FormWrapper {
       name: "Booked"
     },
     {
-      id: "cancel",
+      id: "cancelled",
       name: "Cancel"
     },
     {
-      id: "confirm",
+      id: "confirmed",
       name: "Confirm"
     }
   ];
@@ -560,17 +560,67 @@ class FoodReservations extends FormWrapper {
   };
 
   confirmReservation = async id => {
-    const status = "confirm";
+    const status = "confirmed";
     this.setState({ status });
 
-    await updateReservationStatus({ status }, id, "stay_reservations");
+    try {
+      setTimeout(() => {
+        this.props.dispatch(loader(true));
+      }, 200);
+      await updateReservationStatus({ status }, id, "food_reservations");
+
+      const extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+      const { currentPage, pageLimit, sortColumn } = this.state;
+      const { results: data, count } = await getProfilesPerPage(
+        currentPage,
+        pageLimit,
+        sortColumn,
+        "food_reservations",
+        extraOptions
+      );
+
+      this.setState({ data, count });
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.msg) toast.error(err.response.data.msg);
+      }
+    } finally {
+      setTimeout(() => {
+        this.props.dispatch(loader(false));
+      }, 500);
+    }
   };
 
   cancelReservation = async id => {
-    const status = "cancel";
+    const status = "cancelled";
     this.setState({ status });
 
-    await updateReservationStatus({ status }, id, "stay_reservations");
+    try {
+      setTimeout(() => {
+        this.props.dispatch(loader(true));
+      }, 200);
+      await updateReservationStatus({ status }, id, "food_reservations");
+
+      const extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+      const { currentPage, pageLimit, sortColumn } = this.state;
+      const { results: data, count } = await getProfilesPerPage(
+        currentPage,
+        pageLimit,
+        sortColumn,
+        "food_reservations",
+        extraOptions
+      );
+
+      this.setState({ data, count });
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.msg) toast.error(err.response.data.msg);
+      }
+    } finally {
+      setTimeout(() => {
+        this.props.dispatch(loader(false));
+      }, 500);
+    }
   };
 
   getAdvanceSearch = () => {
@@ -895,6 +945,7 @@ class FoodReservations extends FormWrapper {
           confirmReservation={this.confirmReservation}
           cancelReservation={this.cancelReservation}
           isDashboard={isDashboard}
+          isColored="true"
         />
 
         <Add

@@ -103,11 +103,11 @@ class Edit extends FormWrapper {
       name: "Booked"
     },
     {
-      id: "cancel",
+      id: "cancelled",
       name: "Cancel"
     },
     {
-      id: "confirm",
+      id: "confirmed",
       name: "Confirm"
     }
   ];
