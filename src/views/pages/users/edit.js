@@ -23,10 +23,11 @@ class Edit extends FormWrapper {
   state = {
     data: {
       id: null,
-      name: null,
+      first_name: null,
       phone_number: null,
       role: null,
       email: null,
+      password: null,
       is_active: true
     },
     isChanged: false,
@@ -54,12 +55,13 @@ class Edit extends FormWrapper {
 
   schema = {
     id: Joi.label("ID"),
-    name: Joi.string()
+    first_name: Joi.string()
       .required()
       .label("Name"),
     phone_number: Joi.label("Number"),
     role: Joi.label("Role"),
     email: Joi.label("Email"),
+    password: Joi.label("Password"),
     is_active: Joi.label("Active User")
   };
 
@@ -160,7 +162,7 @@ class Edit extends FormWrapper {
                   <Row>
                     <Col>
                       {this.renderInput(
-                        "name",
+                        "first_name",
                         "Name",
                         "",
                         "fa fa-info-circle",
@@ -201,6 +203,18 @@ class Edit extends FormWrapper {
                         "fa fa-info-circle",
                         "User Email",
                         "text"
+                      )}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.renderInput(
+                        "password",
+                        "Password",
+                        "",
+                        "",
+                        "User Password",
+                        "password"
                       )}
                     </Col>
                   </Row>

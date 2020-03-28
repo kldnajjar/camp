@@ -21,15 +21,15 @@ class TableWrapper extends Component {
     },
     {
       id: 2,
-      path: "name",
+      path: "first_name",
       label: "Name",
       filter: {
-        path: "name",
+        path: "first_name",
         type: "text"
       },
       sort: true,
       isResponsive: true,
-      content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.name}</Link>
+      content: obj => <Link to={`${this.url}/${obj.id}`}>{obj.first_name}</Link>
     },
     {
       id: 3,

@@ -22,6 +22,7 @@ class Add extends FormWrapper {
     data: {
       first_name: null,
       last_name: "Camp",
+      password: null,
       phone_number: null,
       role: null,
       email: null,
@@ -56,6 +57,7 @@ class Add extends FormWrapper {
     phone_number: Joi.label("Number"),
     role: Joi.label("Role"),
     email: Joi.label("Email"),
+    password: Joi.label("Password"),
     is_active: Joi.label("Active User")
   };
 
@@ -143,6 +145,18 @@ class Add extends FormWrapper {
                     "fa fa-info-circle",
                     "User Email",
                     "text"
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {this.renderInput(
+                    "password",
+                    "Password",
+                    "",
+                    "fa fa-info-circle",
+                    "User Email",
+                    "password"
                   )}
                 </Col>
               </Row>
