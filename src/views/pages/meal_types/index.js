@@ -199,13 +199,17 @@ class Food extends Component {
       if (pagesCount < currentPage && pagesCount !== 0) {
         currentPage = pagesCount;
       }
-      const data = await getProfilesPerPage(currentPage, pageLimit, sortColumn);
+      const { results: data, count } = await getProfilesPerPage(
+        currentPage,
+        pageLimit,
+        sortColumn
+      );
 
       const selectedItem = { ...info };
       selectedItem.id = {};
       selectedItem.name = "";
 
-      this.setState({ data, currentPage, selectedItem });
+      this.setState({ data, currentPage, selectedItem, count });
       toast.success("Profile deleted");
     } catch (err) {
       if (err.response)
@@ -245,7 +249,7 @@ class Food extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePagination}
           onDelete={this.showDeleteConfirmationModal}
-          onEdit={this.editHandler}
+          // onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
         />

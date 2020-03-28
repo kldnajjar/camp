@@ -249,7 +249,7 @@ class Companies extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePagination}
           onDelete={this.showDeleteConfirmationModal}
-          onEdit={this.editHandler}
+          // onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
         />

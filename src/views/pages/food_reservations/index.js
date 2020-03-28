@@ -846,7 +846,7 @@ class FoodReservations extends FormWrapper {
           currentPage={currentPage}
           onPageChange={this.handlePagination}
           onDelete={this.showDeleteConfirmationModal}
-          onEdit={this.editHandler}
+          // onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
           meal_types_options={meal_types_options}

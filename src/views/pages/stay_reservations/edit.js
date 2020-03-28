@@ -27,6 +27,7 @@ class Edit extends FormWrapper {
   state = {
     data: {
       id: null,
+      tent_id: null,
       price: null,
       reservation_type: "company",
       contact_name: null,
@@ -39,6 +40,7 @@ class Edit extends FormWrapper {
       company: null,
       notes: null,
       reservation_number: null,
+      activities_ids: null,
 
       created_at: null,
       updated_at: null
@@ -81,7 +83,7 @@ class Edit extends FormWrapper {
       .label("Reservation To"),
     tent_id: Joi.label("Tent"),
     stay_type_id: Joi.label("Tent Type"),
-    activities: Joi.label("Activity")
+    activities_ids: Joi.label("Activity")
   };
 
   reservation_type_options = [
@@ -340,7 +342,7 @@ class Edit extends FormWrapper {
                   <Row>
                     <Col>
                       {this.renderMultiSelect(
-                        "activities",
+                        "activities_ids",
                         "Activities",
                         activities_options,
                         "Choose Activity"

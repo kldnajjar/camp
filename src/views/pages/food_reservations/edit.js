@@ -58,8 +58,6 @@ class Edit extends FormWrapper {
   reset = {};
 
   schema = {
-    food: Joi.label("Delete this when razz delete it"),
-
     id: Joi.label("Document Number"),
     price: Joi.label("Price"),
     reservation_type: Joi.label("Reservation Type"),

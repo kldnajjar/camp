@@ -22,8 +22,6 @@ class Add extends FormWrapper {
     data: {
       price: null,
       reservation_type: "company",
-      meal_type_id: null,
-      food_ids: null,
       contact_name: null,
       contact_number: null,
       contact_email: null,
@@ -32,7 +30,7 @@ class Add extends FormWrapper {
       reserved_to: null,
       tent_id: null,
       stay_type_id: null,
-      activities: null,
+      activities_ids: null,
 
       company_id: null,
       notes: null,
@@ -64,7 +62,7 @@ class Add extends FormWrapper {
       .label("Reservation To"),
     tent_id: Joi.label("Tent"),
     stay_type_id: Joi.label("Tent Type"),
-    activities: Joi.label("Activity")
+    activities_ids: Joi.label("Activity")
   };
 
   doSubmit = async () => {
@@ -111,8 +109,6 @@ class Add extends FormWrapper {
     const {
       showModal,
       onToggle,
-      meal_types_options,
-      food_options,
       company_options,
       reservation_type_options,
       activities_options,
@@ -212,26 +208,8 @@ class Add extends FormWrapper {
               </Row>
               <Row>
                 <Col>
-                  {this.renderSelect(
-                    "meal_type_id",
-                    "Meal Type",
-                    meal_types_options,
-                    "Choose Meal"
-                  )}
-                </Col>
-                <Col>
                   {this.renderMultiSelect(
-                    "food_ids",
-                    "Food",
-                    food_options,
-                    "Choose Food"
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  {this.renderMultiSelect(
-                    "activities",
+                    "activities_ids",
                     "Activities",
                     activities_options,
                     "Choose Activity"
