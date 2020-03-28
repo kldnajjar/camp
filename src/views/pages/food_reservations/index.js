@@ -21,7 +21,8 @@ import {
   getProfilesPerPage,
   getProfilesFilteredBy,
   deleteProfile,
-  getProfilesByFilters
+  getProfilesByFilters,
+  updateReservationStatus
 } from "../../../services/profileService";
 import { loader } from "../../../actions/loaderAction";
 import FormWrapper from "../../../components/common/form";
@@ -70,7 +71,7 @@ class FoodReservations extends FormWrapper {
         type: "text"
       }
     },
-    sortColumn: { path: "updated_at", order: "asc" },
+    sortColumn: { path: "updated_at", order: "desc" },
     selectedItem: { id: null, name: "" },
     count: null,
 
@@ -558,6 +559,20 @@ class FoodReservations extends FormWrapper {
     );
   };
 
+  confirmReservation = async id => {
+    const status = "confirm";
+    this.setState({ status });
+
+    await updateReservationStatus({ status }, id, "stay_reservations");
+  };
+
+  cancelReservation = async id => {
+    const status = "cancel";
+    this.setState({ status });
+
+    await updateReservationStatus({ status }, id, "stay_reservations");
+  };
+
   getAdvanceSearch = () => {
     const {
       data,
@@ -877,6 +892,9 @@ class FoodReservations extends FormWrapper {
           food_options={food_options}
           company_options={company_options}
           reservation_type_options={this.reservation_type_options}
+          confirmReservation={this.confirmReservation}
+          cancelReservation={this.cancelReservation}
+          isDashboard={isDashboard}
         />
 
         <Add

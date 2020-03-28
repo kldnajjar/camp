@@ -6,7 +6,9 @@ class TableActions extends Component {
     isSearchOpen: false,
     isEditOpen: false,
     isDeleteOpen: false,
-    isRoleOpen: false
+    isRoleOpen: false,
+    isConfirm: false,
+    isCancel: false
   };
 
   toggleSearch = () => {
@@ -21,10 +23,26 @@ class TableActions extends Component {
   toggleRole = () => {
     this.setState({ isRoleOpen: !this.state.isRoleOpen });
   };
+  toggleConfirm = () => {
+    this.setState({ isConfirm: !this.state.isConfirm });
+  };
+  toggleCancel = () => {
+    this.setState({ isCancel: !this.state.isCancel });
+  };
 
   render() {
-    const { onEdit, onDelete, id, deleteLabel, editLabel } = this.props;
-    const { isEditOpen, isDeleteOpen } = this.state;
+    const {
+      onEdit,
+      onDelete,
+      onConfirm,
+      onCancel,
+      id,
+      deleteLabel,
+      editLabel,
+      confirmLabel,
+      cancelLabel
+    } = this.props;
+    const { isEditOpen, isDeleteOpen, isConfirm, isCancel } = this.state;
 
     return (
       <div>
@@ -64,6 +82,46 @@ class TableActions extends Component {
               toggle={this.toggleDelete}
             >
               {deleteLabel}
+            </Tooltip>
+          </React.Fragment>
+        )}
+
+        {onConfirm && (
+          <React.Fragment>
+            <button
+              className="btn btn-success mx-1"
+              onClick={onConfirm}
+              id={`confirm-tooltip-${id}`}
+            >
+              <i className="fa fa-thumbs-o-up" />
+            </button>
+            <Tooltip
+              placement="top"
+              isOpen={isConfirm}
+              target={`confirm-tooltip-${id}`}
+              toggle={this.toggleConfirm}
+            >
+              {confirmLabel}
+            </Tooltip>
+          </React.Fragment>
+        )}
+
+        {onCancel && (
+          <React.Fragment>
+            <button
+              className="btn btn-danger mx-1"
+              onClick={onCancel}
+              id={`cancel-tooltip-${id}`}
+            >
+              <i className="fa fa-thumbs-o-down" />
+            </button>
+            <Tooltip
+              placement="top"
+              isOpen={isCancel}
+              target={`cancel-tooltip-${id}`}
+              toggle={this.toggleCancel}
+            >
+              {cancelLabel}
             </Tooltip>
           </React.Fragment>
         )}

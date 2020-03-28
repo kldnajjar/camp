@@ -113,6 +113,21 @@ export async function deleteProfile(id = null, endpoint = null) {
   return data;
 }
 
+export async function updateReservationStatus(
+  status,
+  id = null,
+  endpoint = null
+) {
+  const origin = window.location.pathname.split("/");
+  const options = { ...status };
+
+  if (!id) id = origin[3];
+  if (!endpoint) endpoint = endPoints[origin[2]];
+
+  const { data } = await http.patch(`/${endpoint}/${id}/`, options);
+  return data;
+}
+
 export default {
   getProfiles,
   getProfile,
@@ -121,5 +136,6 @@ export default {
   getProfilesByFilters,
   addNewProfile,
   updateProfile,
-  deleteProfile
+  deleteProfile,
+  updateReservationStatus
 };

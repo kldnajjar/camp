@@ -21,7 +21,8 @@ import {
   getProfilesPerPage,
   getProfilesFilteredBy,
   deleteProfile,
-  getProfilesByFilters
+  getProfilesByFilters,
+  updateReservationStatus
 } from "../../../services/profileService";
 import { loader } from "../../../actions/loaderAction";
 import FormWrapper from "../../../components/common/form";
@@ -76,7 +77,7 @@ class StayReservations extends FormWrapper {
         type: "text"
       }
     },
-    sortColumn: { path: "updated_at", order: "asc" },
+    sortColumn: { path: "created_at", order: "desc" },
     selectedItem: { id: null, name: "" },
     count: null,
 
@@ -592,6 +593,20 @@ class StayReservations extends FormWrapper {
     );
   };
 
+  confirmReservation = async id => {
+    const status = "confirm";
+    this.setState({ status });
+
+    await updateReservationStatus({ status }, id, "stay_reservations");
+  };
+
+  cancelReservation = async id => {
+    const status = "cancel";
+    this.setState({ status });
+
+    await updateReservationStatus({ status }, id, "stay_reservations");
+  };
+
   getAdvanceSearch = () => {
     const {
       data,
@@ -939,6 +954,9 @@ class StayReservations extends FormWrapper {
           tent_types_options={tent_types_options}
           stay_types_options={stay_types_options}
           activities_options={activities_options}
+          confirmReservation={this.confirmReservation}
+          cancelReservation={this.cancelReservation}
+          isDashboard={isDashboard}
         />
 
         <Add

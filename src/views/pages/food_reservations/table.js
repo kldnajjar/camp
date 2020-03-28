@@ -22,7 +22,7 @@ class TableWrapper extends Component {
     {
       id: 1,
       path: "id",
-      label: "Document Number",
+      label: "Doc Num",
       sort: true,
       filter: {
         path: "document_number",
@@ -53,22 +53,15 @@ class TableWrapper extends Component {
       sort: false,
       isResponsive: false
     },
+    // {
+    //   id: 4,
+    //   path: "reservation_date",
+    //   label: "Reservation Date",
+    //   sort: true,
+    //   isResponsive: true
+    // },
     {
       id: 4,
-      path: "contact_number",
-      label: "Contact Number",
-      sort: false,
-      isResponsive: true
-    },
-    {
-      id: 5,
-      path: "reservation_date",
-      label: "Reservation Date",
-      sort: true,
-      isResponsive: true
-    },
-    {
-      id: 6,
       path: "guests_count",
       label: "Guests Count",
       sort: false,
@@ -77,7 +70,7 @@ class TableWrapper extends Component {
   ];
 
   ActionButtons = {
-    id: 7,
+    id: 5,
     label: "Actions",
     isResponsive: false,
     content: obj => (
@@ -85,11 +78,22 @@ class TableWrapper extends Component {
         id={obj.id}
         onEdit={this.props.onEdit && (() => this.props.onEdit(obj.id))}
         onDelete={
-          this.props.onDelete && (() => this.props.onDelete(obj.id, obj.name))
+          !this.props.isDashboard &&
+          this.props.onDelete &&
+          (() => this.props.onDelete(obj.id, obj.name))
+        }
+        onConfirm={
+          this.props.isDashboard &&
+          (() => this.props.confirmReservation(obj.id))
+        }
+        onCancel={
+          this.props.isDashboard && (() => this.props.cancelReservation(obj.id))
         }
         editLabel="Edit"
         deleteLabel="Delete"
         showLabel="Show"
+        confirmLabel="Confirm"
+        cancelLabel="Cancel"
       />
     )
   };
