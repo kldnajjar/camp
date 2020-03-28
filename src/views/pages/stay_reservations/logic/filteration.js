@@ -3,7 +3,7 @@ let stringBuffer = "";
 const filteration = {
   id: {
     filter: {
-      name: "id",
+      name: "document_number",
       param: ""
     }
   },
@@ -19,15 +19,15 @@ const filteration = {
       param: ""
     }
   },
-  meal_type_id: {
+  tent_id: {
     filter: {
-      name: "meal_type_id",
+      name: "tent",
       param: ""
     }
   },
-  food_ids: {
+  stay_type_id: {
     filter: {
-      name: "food_ids",
+      name: "stay_type",
       param: ""
     }
   },
@@ -55,9 +55,15 @@ const filteration = {
       param: ""
     }
   },
-  reservation_date: {
+  reserved_from: {
     filter: {
-      name: "reservation_date",
+      name: "reserved_from",
+      param: ""
+    }
+  },
+  reserved_to: {
+    filter: {
+      name: "reserved_to",
       param: ""
     }
   },

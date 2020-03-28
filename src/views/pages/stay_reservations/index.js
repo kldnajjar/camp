@@ -43,7 +43,10 @@ class StayReservations extends FormWrapper {
       contact_number: null,
       contact_email: null,
       guests_count: null,
-      reservation_date: null,
+      reserved_from: null,
+      reserved_to: null,
+      tent_id: null,
+      stay_type: null,
 
       status: null,
       company_id: null,
@@ -100,11 +103,14 @@ class StayReservations extends FormWrapper {
     contact_number: Joi.label("Contact Number"),
     contact_email: Joi.label("Contact Email"),
     guests_count: Joi.label("Guests Count"),
-    reservation_date: Joi.label("Reservation Date"),
+    reserved_from: Joi.label("Reservation From"),
+    reserved_to: Joi.label("Reservation To"),
     company_id: Joi.label("Company Name"),
     reservation_number: Joi.label("Reservation Number"),
     status: Joi.label("Reservation Status"),
     notes: Joi.label("Notes"),
+    tent_id: Joi.label("Tent"),
+    stay_type: Joi.label("stay_type"),
 
     created_at: Joi.label("created_at"),
     updated_at: Joi.label("updated_at")

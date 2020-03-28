@@ -3,7 +3,7 @@ let stringBuffer = "";
 const filteration = {
   id: {
     filter: {
-      name: "id",
+      name: "document_number",
       param: ""
     }
   },
