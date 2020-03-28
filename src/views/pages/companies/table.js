@@ -41,7 +41,6 @@ class TableWrapper extends Component {
       id: 4,
       path: "email",
       label: "Email",
-      sort: true,
       isResponsive: true
     }
   ];

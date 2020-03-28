@@ -65,8 +65,8 @@ class FoodReservations extends FormWrapper {
       dropDownOpened: false,
       searchQuery: "",
       filter: {
-        searchBy: "Name",
-        path: "name",
+        searchBy: "Document Number",
+        path: "document_number",
         type: "text"
       }
     },

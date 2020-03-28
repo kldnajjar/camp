@@ -22,10 +22,10 @@ class TableWrapper extends Component {
     {
       id: 1,
       path: "id",
-      label: "ID",
+      label: "Document Number",
       sort: true,
       filter: {
-        path: "id",
+        path: "document_number",
         type: "text"
       },
       isResponsive: true
@@ -34,20 +34,6 @@ class TableWrapper extends Component {
       id: 2,
       path: "reservation_type",
       label: "Reservation Type",
-      filter: {
-        path: "reservation_type",
-        type: "select",
-        options: [
-          {
-            value: "company",
-            label: "Company"
-          },
-          {
-            value: "individual",
-            label: "Individual"
-          }
-        ]
-      },
       sort: true,
       isResponsive: true,
       content: obj => {
@@ -64,10 +50,6 @@ class TableWrapper extends Component {
       id: 3,
       path: "contact_name",
       label: "Contact Name",
-      filter: {
-        path: "contact_name",
-        type: "text"
-      },
       sort: false,
       isResponsive: false
     },
@@ -75,21 +57,13 @@ class TableWrapper extends Component {
       id: 4,
       path: "contact_number",
       label: "Contact Number",
-      filter: {
-        path: "contact_name",
-        type: "text"
-      },
-      sort: true,
+      sort: false,
       isResponsive: true
     },
     {
       id: 5,
       path: "reservation_date",
       label: "Reservation Date",
-      filter: {
-        path: "reservation_date",
-        type: "date"
-      },
       sort: true,
       isResponsive: true
     },
@@ -97,11 +71,7 @@ class TableWrapper extends Component {
       id: 6,
       path: "guests_count",
       label: "Guests Count",
-      filter: {
-        path: "guests_count",
-        type: "text"
-      },
-      sort: true,
+      sort: false,
       isResponsive: true
     }
   ];
