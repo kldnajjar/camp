@@ -102,7 +102,7 @@ export async function exposeFilteration(data) {
 
     filter = filteration[item].filter || "";
     switch (item) {
-      case "path":
+      case "food_ids":
         mapArrayData(data, item, filter);
         break;
       default:
@@ -122,7 +122,8 @@ function mapNormalData(data, item, filter) {
 
 function mapArrayData(data, item, filter) {
   let values = "";
-  data[item].map(value => (values += `${value},`));
+
+  data[item].map(item => (values += `${item.value},`));
 
   values = values.substring(0, values.length - 1);
   stringBuffer += `${filter.name}${filter.param}=${values}&`;

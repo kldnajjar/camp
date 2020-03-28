@@ -52,6 +52,7 @@ class StayReservations extends FormWrapper {
       company_id: null,
       notes: null,
       reservation_number: null,
+      activities: [],
 
       created_at: null,
       updated_at: null
