@@ -35,48 +35,19 @@ class TableWrapper extends Component {
       id: 3,
       path: "phone_number",
       label: "Phone Number",
-      filter: {
-        path: "phone_number",
-        type: "text"
-      },
-      sort: true,
       isResponsive: true
     },
     {
       id: 4,
       path: "email",
       label: "Email",
-      filter: {
-        path: "email",
-        type: "text"
-      },
       sort: true,
       isResponsive: true
-    },
-    {
-      id: 5,
-      path: "archived",
-      label: "Archived",
-      sort: true,
-      isResponsive: true,
-      filter: {
-        path: "archived",
-        type: "select",
-        options: [
-          { value: "true", label: "Yes" },
-          { value: "false", label: "No" }
-        ]
-      },
-      content: obj => {
-        let value = "No";
-        if (obj.archived) value = "Yes";
-        return value;
-      }
     }
   ];
 
   ActionButtons = {
-    id: 6,
+    id: 5,
     label: "Actions",
     isResponsive: false,
     content: obj => (

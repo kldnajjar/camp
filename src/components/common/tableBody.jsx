@@ -5,7 +5,8 @@ import _ from "lodash";
 class TableBody extends Component {
   renderCell = (item, column) => {
     if (column.content) return column.content(item);
-    return _.get(item, column.path).toString();
+    if (item[column.path]) return _.get(item, column.path).toString();
+    else return "";
   };
 
   renderColumnDependOnScreenSize = (props, item) => {

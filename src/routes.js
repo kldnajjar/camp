@@ -41,7 +41,7 @@ const routes = [
   },
   {
     path: "/dashboard/stay_reservations",
-    name: "Food Reservations",
+    name: "Stay Reservations",
     component: Stay_Reservations
   },
   {

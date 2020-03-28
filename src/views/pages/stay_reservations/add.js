@@ -82,7 +82,6 @@ class Add extends FormWrapper {
 
       if (oldData.activities) {
         const activities = oldData.activities.map(activity => activity.value);
-        debugger;
         oldData.activities = activities;
       }
 

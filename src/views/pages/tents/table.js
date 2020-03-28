@@ -13,10 +13,6 @@ class TableWrapper extends Component {
       path: "id",
       label: "ID",
       sort: true,
-      filter: {
-        path: "id",
-        type: "text"
-      },
       isResponsive: true
     },
     {
@@ -54,31 +50,11 @@ class TableWrapper extends Component {
       },
       sort: true,
       isResponsive: true
-    },
-    {
-      id: 5,
-      path: "archived",
-      label: "Archived",
-      sort: true,
-      isResponsive: true,
-      filter: {
-        path: "archived",
-        type: "select",
-        options: [
-          { value: "true", label: "Yes" },
-          { value: "false", label: "No" }
-        ]
-      },
-      content: obj => {
-        let value = "No";
-        if (obj.archived) value = "Yes";
-        return value;
-      }
     }
   ];
 
   ActionButtons = {
-    id: 6,
+    id: 5,
     label: "Actions",
     isResponsive: false,
     content: obj => (

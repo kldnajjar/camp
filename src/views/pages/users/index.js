@@ -13,7 +13,7 @@ import Add from "./add";
 import Delete from "./delete";
 // import Edit from "./edit";
 
-class Tents extends Component {
+class Users extends Component {
   state = {
     data: null,
 
@@ -283,4 +283,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tents);
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

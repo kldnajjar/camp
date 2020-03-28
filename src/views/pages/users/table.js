@@ -13,10 +13,6 @@ class TableWrapper extends Component {
       path: "id",
       label: "ID",
       sort: true,
-      filter: {
-        path: "id",
-        type: "text"
-      },
       isResponsive: true
     },
     {
@@ -35,11 +31,6 @@ class TableWrapper extends Component {
       id: 3,
       path: "phone_number",
       label: "Phone Number",
-      filter: {
-        path: "phone_number",
-        type: "text"
-      },
-      sort: true,
       isResponsive: true
     },
     {
@@ -61,11 +52,6 @@ class TableWrapper extends Component {
       id: 5,
       path: "email",
       label: "Email",
-      filter: {
-        path: "email",
-        type: "text"
-      },
-      sort: true,
       isResponsive: true
     },
     {
