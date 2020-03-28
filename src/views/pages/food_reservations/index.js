@@ -71,7 +71,7 @@ class FoodReservations extends FormWrapper {
         type: "text"
       }
     },
-    sortColumn: { path: "updated_at", order: "desc" },
+    sortColumn: { path: "created_at", order: "desc" },
     selectedItem: { id: null, name: "" },
     count: null,
 
