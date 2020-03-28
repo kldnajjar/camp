@@ -103,7 +103,7 @@ export async function exposeFilteration(data) {
     filter = filteration[item].filter || "";
     switch (item) {
       case "path":
-        console.log("not valid state");
+        mapArrayData(data, item, filter);
         break;
       default:
         mapNormalData(data, item, filter);
@@ -118,6 +118,15 @@ export async function exposeFilteration(data) {
 function mapNormalData(data, item, filter) {
   if (data[item] && data[item].length)
     stringBuffer += `${filter.name}${filter.param}=${data[item]}&`;
+}
+
+function mapArrayData(data, item, filter) {
+  let values = "";
+  data[item].map(value => (values += `${value},`));
+
+  values = values.substring(0, values.length - 1);
+  stringBuffer += `${filter.name}${filter.param}=${values}&`;
+  return stringBuffer;
 }
 
 export default {
