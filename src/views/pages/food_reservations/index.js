@@ -158,10 +158,17 @@ class FoodReservations extends FormWrapper {
 
       this.initResetVariable();
 
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         currentPage,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "food_reservations",
+        extraOptions
       );
       if (data.company) {
         data.company.id = data.company.id.toString();
@@ -216,10 +223,18 @@ class FoodReservations extends FormWrapper {
     const { pageLimit } = this.state;
     try {
       await this.props.dispatch(loader(true));
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         1,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "food_reservations",
+        extraOptions
       );
       this.setState({ data, sortColumn, currentPage: 1, count });
     } catch (err) {
@@ -330,10 +345,18 @@ class FoodReservations extends FormWrapper {
       if (pagesCount < currentPage && pagesCount !== 0) {
         currentPage = pagesCount;
       }
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         currentPage,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "food_reservations",
+        extraOptions
       );
       const selectedItem = { ...info };
       selectedItem.id = {};
@@ -829,9 +852,10 @@ class FoodReservations extends FormWrapper {
     } = this.state;
     if (!data) return null;
 
+    const { isDashboard } = this.props;
     return (
       <React.Fragment>
-        {this.getAdvanceSearch()}
+        {!isDashboard && this.getAdvanceSearch()}
         <Table
           data={data}
           sortColumn={sortColumn}

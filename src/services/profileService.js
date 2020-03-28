@@ -26,13 +26,15 @@ export async function getProfilesPerPage(
   page,
   limit,
   sortColumn,
-  endpoint = null
+  endpoint = null,
+  extraOptions = null
 ) {
   const origin = window.location.pathname.split("/");
   let ordering = sortColumn.path;
   if (sortColumn.order === "desc") ordering = `-${ordering}`;
 
-  const options = `?page=${page}&per_page=${limit}&ordering=${ordering}`;
+  let options = `?page=${page}&per_page=${limit}&ordering=${ordering}`;
+  if (extraOptions) options += `&${extraOptions}`;
 
   if (!endpoint) endpoint = endPoints[origin[2]];
 

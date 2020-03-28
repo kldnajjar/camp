@@ -53,7 +53,6 @@ class Add extends FormWrapper {
     company_id: Joi.label("Company Name"),
     notes: Joi.label("Notes"),
     reservation_number: Joi.label("Reservation Number"),
-
     reserved_from: Joi.date()
       .required()
       .label("Reservation From"),

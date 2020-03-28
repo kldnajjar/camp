@@ -12,3 +12,11 @@
 .react-datepicker-wrapper {
   display: block;
 }
+
+.breadcrumb li:first-child {
+  display: none;
+}
+
+.breadcrumb li:nth-child(2):before {
+  content: "";
+}

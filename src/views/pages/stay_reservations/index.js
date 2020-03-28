@@ -164,11 +164,19 @@ class StayReservations extends FormWrapper {
 
       this.initResetVariable();
 
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         currentPage,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "stay_reservations",
+        extraOptions
       );
+
       if (data.company) {
         data.company.id = data.company.id.toString();
       } else {
@@ -226,10 +234,18 @@ class StayReservations extends FormWrapper {
     const { pageLimit } = this.state;
     try {
       await this.props.dispatch(loader(true));
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         1,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "stay_reservations",
+        extraOptions
       );
       this.setState({ data, sortColumn, currentPage: 1, count });
     } catch (err) {
@@ -252,11 +268,19 @@ class StayReservations extends FormWrapper {
     try {
       const { sortColumn, pageLimit, search } = this.state;
       await this.props.dispatch(loader(true));
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesFilteredBy(
         1,
         pageLimit,
         sortColumn,
-        search
+        search,
+        "stay_reservations",
+        extraOptions
       );
       this.setState({ data, sortColumn, search, currentPage: 1, count });
     } catch (err) {
@@ -288,11 +312,19 @@ class StayReservations extends FormWrapper {
     try {
       await this.props.dispatch(loader(true));
       const currentPage = page.selected + 1;
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesFilteredBy(
         currentPage,
         pageLimit,
         sortColumn,
-        search
+        search,
+        "stay_reservations",
+        extraOptions
       );
       if (data.company) {
         data.company.id = data.company.id.toString();
@@ -340,10 +372,18 @@ class StayReservations extends FormWrapper {
       if (pagesCount < currentPage && pagesCount !== 0) {
         currentPage = pagesCount;
       }
+
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data, count } = await getProfilesPerPage(
         currentPage,
         pageLimit,
-        sortColumn
+        sortColumn,
+        "stay_reservations",
+        extraOptions
       );
       const selectedItem = { ...info };
       selectedItem.id = {};
@@ -397,11 +437,18 @@ class StayReservations extends FormWrapper {
 
       const filteredData = await exposeFilteration(oldData);
 
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
       const { results: data } = await getProfilesByFilters(
         currentPage,
         pageLimit,
         sortColumn,
-        filteredData
+        filteredData,
+        "stay_reservations",
+        extraOptions
       );
 
       let searchCollapse = true;
@@ -865,9 +912,10 @@ class StayReservations extends FormWrapper {
     } = this.state;
     if (!data) return null;
 
+    const { isDashboard } = this.props;
     return (
       <React.Fragment>
-        {this.getAdvanceSearch()}
+        {!isDashboard && this.getAdvanceSearch()}
         <Table
           data={data}
           sortColumn={sortColumn}
