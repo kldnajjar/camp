@@ -32,15 +32,13 @@ import Add from "./add";
 import Delete from "./delete";
 // import Edit from "./edit";
 
-class FoodReservations extends FormWrapper {
+class StayReservations extends FormWrapper {
   state = {
     data: null,
     advanceSearch: {
       id: null,
       price: null,
       reservation_type: null,
-      meal_type_id: null,
-      food_ids: null,
       contact_name: null,
       contact_number: null,
       contact_email: null,
@@ -56,8 +54,6 @@ class FoodReservations extends FormWrapper {
       updated_at: null
     },
 
-    meal_types_options: [],
-    food_options: [],
     company_options: [],
     tent_options: [],
     tent_types_options: [],
@@ -97,12 +93,9 @@ class FoodReservations extends FormWrapper {
   };
 
   schema = {
-    food: Joi.label("Delete this when razz delete it"),
     id: Joi.label("Document Number"),
     price: Joi.label("Price"),
     reservation_type: Joi.label("Reservation Type"),
-    meal_type_id: Joi.label("Meal Type"),
-    food_ids: Joi.label("Food"),
     contact_name: Joi.label("Contact Name"),
     contact_number: Joi.label("Contact Number"),
     contact_email: Joi.label("Contact Email"),
@@ -176,8 +169,6 @@ class FoodReservations extends FormWrapper {
       }
       delete data.company;
 
-      const { results: meal_types_options } = await getProfiles("meal_types");
-      const { results: food_options } = await getProfiles("food");
       const { results: company_options } = await getProfiles("companies");
       const { results: tent_types_options } = await getProfiles("tent_types");
       const { results: tent_options } = await getProfiles("tents");
@@ -186,8 +177,6 @@ class FoodReservations extends FormWrapper {
 
       this.setState({
         data,
-        meal_types_options,
-        food_options,
         company_options,
         tent_types_options,
         stay_types_options,
@@ -553,8 +542,6 @@ class FoodReservations extends FormWrapper {
     const {
       data,
       advanceSearch,
-      meal_types_options,
-      food_options,
       company_options,
       searchCollapse,
       isResultRequested,
@@ -810,27 +797,6 @@ class FoodReservations extends FormWrapper {
 
                     <Row>
                       <Col>
-                        {this.renderSelect(
-                          "meal_type_id",
-                          "Meal Type",
-                          meal_types_options,
-                          "Choose Meal",
-                          false,
-                          this.handleChangeByAdvanceSearch,
-                          advanceSearch
-                        )}
-                      </Col>
-                      <Col>
-                        {this.renderMultiSelect(
-                          "food_ids",
-                          "Food",
-                          food_options,
-                          "Choose Food",
-                          this.handleMultiSelectChangeByAdvanceSearch,
-                          advanceSearch
-                        )}
-                      </Col>
-                      <Col>
                         {this.renderMultiSelect(
                           "activities",
                           "Activities",
@@ -884,8 +850,6 @@ class FoodReservations extends FormWrapper {
       showDeleteModal,
       selectedItem,
       count,
-      meal_types_options,
-      food_options,
       company_options,
       tent_options,
       tent_types_options,
@@ -914,8 +878,6 @@ class FoodReservations extends FormWrapper {
           onEdit={this.editHandler}
           onSort={this.sortHandler}
           info={this.info}
-          meal_types_options={meal_types_options}
-          food_options={food_options}
           company_options={company_options}
           reservation_type_options={this.reservation_type_options}
           tent_options={tent_options}
@@ -928,8 +890,6 @@ class FoodReservations extends FormWrapper {
           showModal={showAddModal}
           onToggle={this.addModalHandler}
           url={this.url}
-          meal_types_options={meal_types_options}
-          food_options={food_options}
           company_options={company_options}
           reservation_type_options={this.reservation_type_options}
           tent_options={tent_options}
@@ -957,4 +917,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoodReservations);
+export default connect(mapStateToProps, mapDispatchToProps)(StayReservations);

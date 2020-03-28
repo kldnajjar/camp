@@ -29,8 +29,6 @@ class Edit extends FormWrapper {
       id: null,
       price: null,
       reservation_type: "company",
-      meal_type_id: null,
-      food_ids: null,
       contact_name: null,
       contact_number: null,
       contact_email: null,
@@ -45,8 +43,6 @@ class Edit extends FormWrapper {
       created_at: null,
       updated_at: null
     },
-    meal_types_options: [],
-    food_options: [],
     company_options: [],
     tent_options: [],
     tent_types_options: [],
@@ -62,13 +58,9 @@ class Edit extends FormWrapper {
   reset = {};
 
   schema = {
-    food: Joi.label("Delete this when razz delete it"),
-
     id: Joi.label("Document Number"),
     price: Joi.label("Price"),
     reservation_type: Joi.label("Reservation Type"),
-    meal_type_id: Joi.label("Meal Type"),
-    food_ids: Joi.label("Food"),
     contact_name: Joi.label("Contact Name"),
     contact_number: Joi.label("Contact Number"),
     contact_email: Joi.label("Contact Email"),
@@ -132,8 +124,6 @@ class Edit extends FormWrapper {
         data.company = data.company.toString();
       }
 
-      const { results: meal_types_options } = await getProfiles("meal_types");
-      const { results: food_options } = await getProfiles("food");
       const { results: company_options } = await getProfiles("companies");
       const { results: tent_types_options } = await getProfiles("tent_types");
       const { results: tent_options } = await getProfiles("tents");
@@ -144,8 +134,6 @@ class Edit extends FormWrapper {
 
       this.setState({
         data,
-        meal_types_options,
-        food_options,
         company_options,
         tent_types_options,
         tent_options,
@@ -207,8 +195,6 @@ class Edit extends FormWrapper {
   render() {
     const {
       data,
-      meal_types_options,
-      food_options,
       company_options,
       activities_options,
       tent_options,
@@ -352,22 +338,6 @@ class Edit extends FormWrapper {
                   </Row>
 
                   <Row>
-                    <Col>
-                      {this.renderSelect(
-                        "meal_type_id",
-                        "Meal Type",
-                        meal_types_options,
-                        "Choose Meal"
-                      )}
-                    </Col>
-                    <Col>
-                      {this.renderMultiSelect(
-                        "food_ids",
-                        "Food",
-                        food_options,
-                        "Choose Food"
-                      )}
-                    </Col>
                     <Col>
                       {this.renderMultiSelect(
                         "activities",
