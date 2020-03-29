@@ -143,11 +143,11 @@ class StayReservations extends FormWrapper {
     },
     {
       id: "cancelled",
-      name: "Cancel"
+      name: "Cancelled"
     },
     {
       id: "confirmed",
-      name: "Confirm"
+      name: "Confirmed"
     }
   ];
 
