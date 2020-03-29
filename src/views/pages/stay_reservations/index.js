@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
-import { animateScroll, scroller, Element } from "react-scroll";
+import { animateScroll, scroller } from "react-scroll";
 import moment from "moment";
 import {
   Card,
@@ -12,7 +12,6 @@ import {
   Col,
   Row,
   Button,
-  Alert,
   Collapse
 } from "reactstrap";
 
@@ -53,7 +52,7 @@ class StayReservations extends FormWrapper {
       company_id: null,
       notes: null,
       reservation_number: null,
-      activities: [],
+      activities_ids: [],
 
       created_at: null,
       updated_at: null
@@ -112,7 +111,8 @@ class StayReservations extends FormWrapper {
     status: Joi.label("Reservation Status"),
     notes: Joi.label("Notes"),
     tent_id: Joi.label("Tent"),
-    stay_type: Joi.label("stay_type"),
+    stay_type_id: Joi.label("stay_type"),
+    activities_ids: Joi.label("Activities"),
 
     created_at: Joi.label("created_at"),
     updated_at: Joi.label("updated_at")
@@ -419,14 +419,18 @@ class StayReservations extends FormWrapper {
     setTimeout(() => this.props.dispatch(loader(false)), 500);
   };
 
-  handleAdvanceSearch = async e => {
+  handleAdvanceSearch = e => {
     e.preventDefault();
 
     const errors = this.validateByAdvanceSearch();
     this.setState({ errors: errors || {}, isChanged: false });
     if (errors) return;
 
-    const {
+    this.advanceSubmit(false);
+  };
+
+  advanceSubmit = async (isPrint = false) => {
+    let {
       advanceSearch: oldData,
       pageLimit,
       sortColumn,
@@ -442,6 +446,19 @@ class StayReservations extends FormWrapper {
       let extraOptions = null;
       if (isDashboard)
         extraOptions = `reserved_from=${moment().format("YYYY-MM-DD")}`;
+
+      if (isPrint) {
+        const { results: data } = await getProfilesByFilters(
+          currentPage,
+          99999,
+          sortColumn,
+          filteredData,
+          "stay_reservations",
+          extraOptions
+        );
+
+        this.printToPDF(data);
+      }
 
       const { results: data } = await getProfilesByFilters(
         currentPage,
@@ -491,6 +508,11 @@ class StayReservations extends FormWrapper {
         this.props.dispatch(loader(false));
       }, 200);
     }
+  };
+
+  printToPDF = data => {
+    debugger;
+    console.log(data);
   };
 
   validateByAdvanceSearch = () => {
@@ -577,22 +599,6 @@ class StayReservations extends FormWrapper {
     this.setState({ advanceSearch, errors, isChanged: true });
   };
 
-  renderButtonByAdvanceSearch = (
-    label,
-    isDisabled = false,
-    type = "primary"
-  ) => {
-    return (
-      <button
-        disabled={this.validateByAdvanceSearch() || isDisabled}
-        type="submit"
-        className={`btn btn-${type}`}
-      >
-        {label}
-      </button>
-    );
-  };
-
   confirmReservation = async id => {
     const status = "confirmed";
     this.setState({ status });
@@ -659,11 +665,9 @@ class StayReservations extends FormWrapper {
 
   getAdvanceSearch = () => {
     const {
-      data,
       advanceSearch,
       company_options,
       searchCollapse,
-      isResultRequested,
       activities_options,
       tent_options,
       stay_types_options
@@ -867,7 +871,10 @@ class StayReservations extends FormWrapper {
                           "tent_id",
                           "Tent",
                           tent_options,
-                          "Choose Tent"
+                          "Choose Tent",
+                          false,
+                          this.handleChangeByAdvanceSearch,
+                          advanceSearch
                         )}
                       </Col>
                       <Col>
@@ -875,7 +882,10 @@ class StayReservations extends FormWrapper {
                           "stay_type_id",
                           "Stay Type",
                           stay_types_options,
-                          "Choose Stay Type"
+                          "Choose Stay Type",
+                          false,
+                          this.handleChangeByAdvanceSearch,
+                          advanceSearch
                         )}
                       </Col>
                     </Row>
@@ -917,10 +927,12 @@ class StayReservations extends FormWrapper {
                     <Row>
                       <Col>
                         {this.renderMultiSelect(
-                          "activities",
+                          "activities_ids",
                           "Activities",
                           activities_options,
-                          "Choose Activity"
+                          "Choose Activity",
+                          null,
+                          advanceSearch
                         )}
                       </Col>
                     </Row>
@@ -938,7 +950,15 @@ class StayReservations extends FormWrapper {
                         </Button>
                       </Col>
                       <Col className="text-right">
-                        {this.renderButtonByAdvanceSearch("Search")}
+                        <button
+                          className={`btn btn-dark mr-2`}
+                          onClick={() => this.advanceSubmit(true)}
+                        >
+                          Print
+                        </button>
+                        <button type="submit" className={`btn btn-primary`}>
+                          Search
+                        </button>
                       </Col>
                     </Row>
                   </CardFooter>
@@ -947,13 +967,6 @@ class StayReservations extends FormWrapper {
             </Card>
           </Col>
         </Row>
-        {isResultRequested && data.length === 0 && (
-          <Alert color="warning">
-            <strong>
-              <Element name="no-result">No result ...</Element>
-            </strong>
-          </Alert>
-        )}
       </React.Fragment>
     );
   };

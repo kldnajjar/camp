@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
-import { animateScroll, scroller, Element } from "react-scroll";
+import { animateScroll, scroller } from "react-scroll";
 import moment from "moment";
 import {
   Card,
@@ -12,7 +12,6 @@ import {
   Col,
   Row,
   Button,
-  Alert,
   Collapse
 } from "reactstrap";
 
@@ -41,7 +40,7 @@ class FoodReservations extends FormWrapper {
       price: null,
       reservation_type: null,
       meal_type_id: null,
-      food_ids: null,
+      food_ids: [],
       contact_name: null,
       contact_number: null,
       contact_email: null,
@@ -392,13 +391,17 @@ class FoodReservations extends FormWrapper {
     setTimeout(() => this.props.dispatch(loader(false)), 500);
   };
 
-  handleAdvanceSearch = async e => {
+  handleAdvanceSearch = e => {
     e.preventDefault();
 
     const errors = this.validateByAdvanceSearch();
     this.setState({ errors: errors || {}, isChanged: false });
     if (errors) return;
 
+    this.advanceSubmit(false);
+  };
+
+  advanceSubmit = async (isPrint = false) => {
     const {
       advanceSearch: oldData,
       pageLimit,
@@ -408,8 +411,24 @@ class FoodReservations extends FormWrapper {
     try {
       await this.props.dispatch(loader(true));
       const currentPage = 1;
-
       const filteredData = await exposeFilteration(oldData);
+      const { isDashboard } = this.props;
+      let extraOptions = null;
+      if (isDashboard)
+        extraOptions = `reservation_date=${moment().format("YYYY-MM-DD")}`;
+
+      if (isPrint) {
+        const { results: data } = await getProfilesByFilters(
+          currentPage,
+          99999,
+          sortColumn,
+          filteredData,
+          "stay_reservations",
+          extraOptions
+        );
+
+        this.printToPDF(data);
+      }
 
       const { results: data } = await getProfilesByFilters(
         currentPage,
@@ -457,6 +476,11 @@ class FoodReservations extends FormWrapper {
         this.props.dispatch(loader(false));
       }, 200);
     }
+  };
+
+  printToPDF = data => {
+    debugger;
+    console.log(data);
   };
 
   validateByAdvanceSearch = () => {
@@ -543,22 +567,6 @@ class FoodReservations extends FormWrapper {
     this.setState({ advanceSearch, errors, isChanged: true });
   };
 
-  renderButtonByAdvanceSearch = (
-    label,
-    isDisabled = false,
-    type = "primary"
-  ) => {
-    return (
-      <button
-        disabled={this.validateByAdvanceSearch() || isDisabled}
-        type="submit"
-        className={`btn btn-${type}`}
-      >
-        {label}
-      </button>
-    );
-  };
-
   confirmReservation = async id => {
     const status = "confirmed";
     this.setState({ status });
@@ -625,13 +633,11 @@ class FoodReservations extends FormWrapper {
 
   getAdvanceSearch = () => {
     const {
-      data,
       advanceSearch,
       meal_types_options,
       food_options,
       company_options,
-      searchCollapse,
-      isResultRequested
+      searchCollapse
     } = this.state;
     return (
       <React.Fragment>
@@ -880,7 +886,15 @@ class FoodReservations extends FormWrapper {
                         </Button>
                       </Col>
                       <Col className="text-right">
-                        {this.renderButtonByAdvanceSearch("Search")}
+                        <button
+                          className={`btn btn-dark mr-2`}
+                          onClick={() => this.advanceSubmit(true)}
+                        >
+                          Print
+                        </button>
+                        <button type="submit" className={`btn btn-primary`}>
+                          Search
+                        </button>
                       </Col>
                     </Row>
                   </CardFooter>
@@ -889,13 +903,6 @@ class FoodReservations extends FormWrapper {
             </Card>
           </Col>
         </Row>
-        {isResultRequested && data.length === 0 && (
-          <Alert color="warning">
-            <strong>
-              <Element name="no-result">No result ...</Element>
-            </strong>
-          </Alert>
-        )}
       </React.Fragment>
     );
   };
