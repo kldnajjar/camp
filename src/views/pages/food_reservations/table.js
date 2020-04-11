@@ -10,25 +10,25 @@ class TableWrapper extends Component {
   reservation_type_options = [
     {
       id: "company",
-      name: "Company"
+      name: "Company",
     },
     {
       id: "individual",
-      name: "Individual"
-    }
+      name: "Individual",
+    },
   ];
 
   columns = [
     {
       id: 1,
       path: "id",
-      label: "Doc Num",
+      label: "Document Number",
       sort: true,
       filter: {
         path: "document_number",
-        type: "text"
+        type: "text",
       },
-      isResponsive: true
+      isResponsive: true,
     },
     {
       id: 2,
@@ -36,22 +36,22 @@ class TableWrapper extends Component {
       label: "Reservation Type",
       sort: true,
       isResponsive: true,
-      content: obj => {
+      content: (obj) => {
         let value = "";
-        this.props.reservation_type_options.map(reservation_type => {
+        this.props.reservation_type_options.map((reservation_type) => {
           if (reservation_type.id === obj.reservation_type)
             value = reservation_type.name;
           return reservation_type;
         });
         return <Link to={`${this.url}/${obj.id}`}>{value}</Link>;
-      }
+      },
     },
     {
       id: 3,
       path: "contact_name",
       label: "Contact Name",
       sort: false,
-      isResponsive: false
+      isResponsive: false,
     },
     // {
     //   id: 4,
@@ -65,15 +65,15 @@ class TableWrapper extends Component {
       path: "guests_count",
       label: "Guests Count",
       sort: false,
-      isResponsive: true
-    }
+      isResponsive: true,
+    },
   ];
 
   ActionButtons = {
     id: 5,
     label: "Actions",
     isResponsive: false,
-    content: obj => (
+    content: (obj) => (
       <TableActions
         id={obj.id}
         onEdit={this.props.onEdit && (() => this.props.onEdit(obj.id))}
@@ -95,7 +95,7 @@ class TableWrapper extends Component {
         confirmLabel="Confirm"
         cancelLabel="Cancel"
       />
-    )
+    ),
   };
 
   constructor(props) {
@@ -121,7 +121,7 @@ class TableWrapper extends Component {
       onPageChange,
       onAdd,
       info,
-      isColored = null
+      isColored = null,
     } = this.props;
     return (
       <ConfigurableTable
@@ -159,7 +159,7 @@ TableWrapper.defaultProps = {
   itemCounts: null,
   onPageChange: null,
   data: null,
-  sortColumn: null
+  sortColumn: null,
 };
 
 export default TableWrapper;
