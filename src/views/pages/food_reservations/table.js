@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import moment from "moment";
+
 import { Link } from "react-router-dom";
 
 import ConfigurableTable from "../../../components/common/table";
@@ -32,29 +34,23 @@ class TableWrapper extends Component {
     },
     {
       id: 2,
-      path: "reservation_type",
-      label: "Reservation Type",
-      sort: true,
-      isResponsive: true,
-      content: (obj) => {
-        let value = "";
-        this.props.reservation_type_options.map((reservation_type) => {
-          if (reservation_type.id === obj.reservation_type)
-            value = reservation_type.name;
-          return reservation_type;
-        });
-        return value;
-      },
-    },
-    {
-      id: 3,
       label: "Name",
       isResponsive: false,
       content: (obj) => {
         let value = "";
-        if (obj.reservation_type === "company") value = obj.company.name;
-        else value = obj.contact_name;
+        if (obj.reservation_type === "company")
+          value = `Company: ${obj.company.name}`;
+        else value = `Individual: ${obj.contact_name}`;
         return <Link to={`${this.url}/${obj.id}`}>{value}</Link>;
+      },
+    },
+    {
+      id: 3,
+      label: "Reservation Date",
+      sort: true,
+      isResponsive: true,
+      content: (obj) => {
+        return moment(obj.reservation_date).format("DD MMM YYYY");
       },
     },
     // {
