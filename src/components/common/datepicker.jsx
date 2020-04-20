@@ -14,7 +14,7 @@ class DatePickerWrapper extends Component {
       isDisable,
       error,
       filterDate,
-      onChange
+      onChange,
     } = this.props;
     // moment.tz.setDefault("Asia/Dubai");
     return (
@@ -27,7 +27,7 @@ class DatePickerWrapper extends Component {
         {type === "date_only" && (
           <DatePicker
             name={name}
-            filterDate={date => {
+            filterDate={(date) => {
               if (filterDate) return filterDate(date);
               else return true;
             }}
@@ -35,19 +35,19 @@ class DatePickerWrapper extends Component {
             disabled={isDisable}
             onChange={onChange}
             isClearable={true}
-            dateFormat={"dd-MMM-yy"}
+            dateFormat={"yyyy-MMM-dd"}
             className={"form-control"}
             autoComplete={"off"}
             placeholderText={placeholder}
             withPortal={this.props.isMobile()}
-            onFocus={e => (e.target.readOnly = true)}
-            onBlur={e => (e.target.readOnly = false)}
+            onFocus={(e) => (e.target.readOnly = true)}
+            onBlur={(e) => (e.target.readOnly = false)}
           />
         )}
         {type === "date_time" && (
           <DatePicker
             name={name}
-            filterDate={date => {
+            filterDate={(date) => {
               if (filterDate) return filterDate(date);
               else return true;
             }}
@@ -61,14 +61,14 @@ class DatePickerWrapper extends Component {
             autoComplete={"off"}
             placeholderText={placeholder}
             withPortal={true}
-            onFocus={e => (e.target.readOnly = true)}
-            onBlur={e => (e.target.readOnly = false)}
+            onFocus={(e) => (e.target.readOnly = true)}
+            onBlur={(e) => (e.target.readOnly = false)}
           />
         )}
         {type === "time_only" && (
           <DatePicker
             name={name}
-            filterDate={date => {
+            filterDate={(date) => {
               if (filterDate) return filterDate(date);
               else return true;
             }}
@@ -83,8 +83,8 @@ class DatePickerWrapper extends Component {
             autoComplete={"off"}
             placeholderText={placeholder}
             withPortal={this.props.isMobile()}
-            onFocus={e => (e.target.readOnly = true)}
-            onBlur={e => (e.target.readOnly = false)}
+            onFocus={(e) => (e.target.readOnly = true)}
+            onBlur={(e) => (e.target.readOnly = false)}
           />
         )}
 

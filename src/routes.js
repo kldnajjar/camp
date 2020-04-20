@@ -31,103 +31,117 @@ const Stay_Reservations = React.lazy(() =>
 const Stay_Reservation = React.lazy(() =>
   import("./views/pages/stay_reservations/edit")
 );
+
+const Payments = React.lazy(() => import("./views/pages/payments"));
+const Payment = React.lazy(() => import("./views/pages/payments/edit"));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
   {
+    path: "/dashboard/payments/:id",
+    name: "Profile",
+    component: Payment,
+  },
+  {
+    path: "/dashboard/payments",
+    name: "Stay Reservations",
+    component: Payments,
+  },
+  {
     path: "/dashboard/stay_reservations/:id",
     name: "Profile",
-    component: Stay_Reservation
+    component: Stay_Reservation,
   },
   {
     path: "/dashboard/stay_reservations",
     name: "Stay Reservations",
-    component: Stay_Reservations
+    component: Stay_Reservations,
   },
   {
     path: "/dashboard/food_reservations/:id",
     name: "Profile",
-    component: Food_Reservation
+    component: Food_Reservation,
   },
   {
     path: "/dashboard/food_reservations",
     name: "Food Reservations",
-    component: Food_Reservations
+    component: Food_Reservations,
   },
   {
     path: "/dashboard/users/:id",
     name: "Profile",
-    component: User
+    component: User,
   },
   {
     path: "/dashboard/users",
     name: "Users",
-    component: Users
+    component: Users,
   },
   {
     path: "/dashboard/activities/:id",
     name: "Profile",
-    component: Activity
+    component: Activity,
   },
   {
     path: "/dashboard/activities",
     name: "Activities",
-    component: Activities
+    component: Activities,
   },
   {
     path: "/dashboard/stay_types/:id",
     name: "Profile",
-    component: Stay_Type
+    component: Stay_Type,
   },
   {
     path: "/dashboard/stay_types",
     name: "Meal Types",
-    component: Stay_Types
+    component: Stay_Types,
   },
   {
     path: "/dashboard/meal_types/:id",
     name: "Profile",
-    component: Meal_Type
+    component: Meal_Type,
   },
   {
     path: "/dashboard/meal_types",
     name: "Meal Types",
-    component: Meal_Types
+    component: Meal_Types,
   },
   {
     path: "/dashboard/food/:id",
     name: "Profile",
-    component: Food
+    component: Food,
   },
   {
     path: "/dashboard/food",
     name: "Companies",
-    component: Foods
+    component: Foods,
   },
   {
     path: "/dashboard/companies/:id",
     name: "Profile",
-    component: Company
+    component: Company,
   },
   {
     path: "/dashboard/companies",
     name: "Companies",
-    component: Companies
+    component: Companies,
   },
   {
     path: "/dashboard/tent_types/:id",
     name: "Profile",
-    component: Tent_Type
+    component: Tent_Type,
   },
   {
     path: "/dashboard/tent_types",
     name: "Tent Types",
-    component: Tent_Types
+    component: Tent_Types,
   },
   { path: "/dashboard/tents/:id", name: "Profile", component: Tent },
   { path: "/dashboard/tents", name: "Tents", component: Tents },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
-  { path: "/", exact: true, name: "Home" }
+  { path: "/", exact: true, name: "Home" },
 ];
 
 export default routes;

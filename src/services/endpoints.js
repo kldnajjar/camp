@@ -8,5 +8,6 @@ export default {
   activities: "activities",
   users: "users",
   food_reservations: "food_reservations",
-  stay_reservations: "stay_reservations"
+  stay_reservations: "stay_reservations",
+  payments: "payments",
 };
