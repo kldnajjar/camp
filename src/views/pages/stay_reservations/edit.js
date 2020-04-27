@@ -6,7 +6,7 @@ import {
   CardFooter,
   Col,
   Row,
-  Button
+  Button,
 } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ import Joi from "joi-browser";
 import {
   getProfile,
   getProfiles,
-  updateProfile
+  updateProfile,
 } from "../../../services/profileService";
 
 import FormWrapper from "../../../components/common/form";
@@ -43,7 +43,7 @@ class Edit extends FormWrapper {
       activities_ids: null,
 
       created_at: null,
-      updated_at: null
+      updated_at: null,
     },
     company_options: [],
     tent_options: [],
@@ -53,7 +53,7 @@ class Edit extends FormWrapper {
 
     isChanged: false,
 
-    errors: {}
+    errors: {},
   };
 
   url = "/dashboard/stay_reservations";
@@ -75,41 +75,37 @@ class Edit extends FormWrapper {
     created_at: Joi.label("created_at"),
     updated_at: Joi.label("updated_at"),
 
-    reserved_from: Joi.date()
-      .required()
-      .label("Reservation From"),
-    reserved_to: Joi.date()
-      .required()
-      .label("Reservation To"),
+    reserved_from: Joi.date().required().label("Reservation From"),
+    reserved_to: Joi.date().required().label("Reservation To"),
     tent_id: Joi.label("Tent"),
     stay_type_id: Joi.label("Tent Type"),
-    activities_ids: Joi.label("Activity")
+    activities_ids: Joi.label("Activity"),
   };
 
   reservation_type_options = [
     {
       id: "company",
-      name: "Company"
+      name: "Company",
     },
     {
       id: "individual",
-      name: "Individual"
-    }
+      name: "Individual",
+    },
   ];
 
   status_options = [
     {
       id: "booked",
-      name: "Booked"
+      name: "Booked",
     },
     {
       id: "cancelled",
-      name: "Cancelled"
+      name: "Cancelled",
     },
     {
       id: "confirmed",
-      name: "Confirmed"
-    }
+      name: "Confirmed",
+    },
   ];
 
   async componentDidMount() {
@@ -123,7 +119,7 @@ class Edit extends FormWrapper {
       const data = await getProfile(id);
 
       if (data.company) {
-        data.company = data.company.toString();
+        data.company = data.company.id.toString();
       }
 
       const { results: company_options } = await getProfiles("companies");
@@ -140,7 +136,7 @@ class Edit extends FormWrapper {
         tent_types_options,
         tent_options,
         stay_types_options,
-        activities_options
+        activities_options,
       });
     } catch (err) {
       if (err.response) {
@@ -201,7 +197,7 @@ class Edit extends FormWrapper {
       activities_options,
       tent_options,
       stay_types_options,
-      isChanged
+      isChanged,
     } = this.state;
     if (!data.id) return null;
 
@@ -386,11 +382,11 @@ class Edit extends FormWrapper {
 }
 
 const mapStateToProps = ({ loaderReducer }) => ({
-  loaderReducer
+  loaderReducer,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatch
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

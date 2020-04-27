@@ -43,15 +43,19 @@ class TableWrapper extends Component {
             value = reservation_type.name;
           return reservation_type;
         });
-        return <Link to={`${this.url}/${obj.id}`}>{value}</Link>;
+        return value;
       },
     },
     {
       id: 3,
-      path: "contact_name",
-      label: "Contact Name",
-      sort: false,
+      label: "Name",
       isResponsive: false,
+      content: (obj) => {
+        let value = "";
+        if (obj.reservation_type === "company") value = obj.company.name;
+        else value = obj.contact_name;
+        return <Link to={`${this.url}/${obj.id}`}>{value}</Link>;
+      },
     },
     // {
     //   id: 4,
