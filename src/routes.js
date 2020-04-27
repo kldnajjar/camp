@@ -35,9 +35,16 @@ const Stay_Reservation = React.lazy(() =>
 const Payments = React.lazy(() => import("./views/pages/payments"));
 const Payment = React.lazy(() => import("./views/pages/payments/edit"));
 
+const Daily = React.lazy(() => import("./views/pages/daily"));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 
 const routes = [
+  {
+    path: "/dashboard/daily",
+    name: "Daily",
+    component: Daily,
+  },
   {
     path: "/dashboard/payments/:id",
     name: "Profile",

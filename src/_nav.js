@@ -26,6 +26,11 @@ export default {
       icon: "fa fa-cubes",
     },
     {
+      name: "Daily",
+      url: "/dashboard/daily",
+      icon: "fa fa-cubes",
+    },
+    {
       name: "Profiles",
       icon: "icon-puzzle",
       children: [

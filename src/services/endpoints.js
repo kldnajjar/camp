@@ -10,4 +10,5 @@ export default {
   food_reservations: "food_reservations",
   stay_reservations: "stay_reservations",
   payments: "payments",
+  daily: "daily",
 };
